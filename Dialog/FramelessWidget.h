@@ -21,12 +21,12 @@ protected:
 private:
     void setFramelessWidget(QWidget *widget);
 
-    void generatePaddingRect();
+    void updatePaddingRect();
     void setMouseCursor(QPoint point);
     void updateGeometry(int offsetX, int offsetY);
     void updateMousePressPaddingRect();
 
-    int padding = 8;                        //边距
+    int padding = 12;                       //边距
     bool moveEnable = true;                 //可移动
     bool resizeEnable = true;               //可拉伸
     QWidget *widget = nullptr;              //无边框窗体
@@ -35,7 +35,7 @@ private:
     bool pressedLeft = false;               //鼠标按下左侧
     bool pressedRight = false;              //鼠标按下右侧
     bool pressedTop = false;                //鼠标按下上侧
-    bool pressedBottom= false;              //鼠标按下下侧
+    bool pressedBottom = false;             //鼠标按下下侧
     bool pressedLeftTop = false;            //鼠标按下左上侧
     bool pressedRightTop = false;           //鼠标按下右上侧
     bool pressedLeftBottom = false;         //鼠标按下左下侧

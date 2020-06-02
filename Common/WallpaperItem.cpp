@@ -1,6 +1,7 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QImage>
 #include <QDebug>
 
 #include "HttpClient.h"
@@ -8,12 +9,36 @@
 #include "AppConfig.h"
 #include "WallpaperItem.h"
 
-WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent), wallpaperData(date)
+WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent), imageData(date)
 {
-    if (true == wallpaperData.isValid()){
-        distanceToday = wallpaperData.daysTo(QDate::currentDate());
+    if (true == imageData.isValid()) {
+        distanceToday = imageData.daysTo(QDate::currentDate());
     }
     getWallpaperUrlRequest();
+}
+
+WallpaperItem::WallpaperItem()
+{
+}
+
+WallpaperItem::WallpaperItem(const WallpaperItem &item)
+{
+    distanceToday = item.distanceToday;
+    imageData = item.imageData;
+    imageSize = item.imageSize;
+    imageFormat = item.imageFormat;
+    imageLoadResult = item.imageLoadResult;
+
+    if ( imageSize.width() > 0 && imageSize.height() > 0 &&  nullptr != item.image ) {
+        image = new QImage(*(item.image));
+    }
+}
+
+WallpaperItem::~WallpaperItem()
+{
+    if (nullptr != image) {
+        delete image;
+    }
 }
 
 void WallpaperItem::getWallpaperUrlRequest()
@@ -26,7 +51,7 @@ void WallpaperItem::getWallpaperUrlRequest()
 
 void WallpaperItem::parseWallpaperUrlRequest()
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply*>(QObject::sender());
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
     reply->deleteLater();
 
     QJsonDocument doc;
@@ -35,30 +60,35 @@ void WallpaperItem::parseWallpaperUrlRequest()
     }
 
     QJsonObject jsonObj = doc.object();
-    if ( false == jsonObj.contains("status")){
+    if ( false == jsonObj.contains("status")) {
         return;
     }
     QJsonObject statusObj = jsonObj.value("status").toObject();
-    if (false == statusObj.contains("code") || HTTP_RESPONSE_OK != statusObj.value("code").toInt()){
+    if (false == statusObj.contains("code") || HTTP_RESPONSE_OK != statusObj.value("code").toInt()) {
         return;
     }
-    if ( false == jsonObj.contains("data")){
+    if ( false == jsonObj.contains("data")) {
         return;
     }
     QJsonObject dataObj = jsonObj.value("data").toObject();
-    if (true == dataObj.contains("url")){
+    if (true == dataObj.contains("url")) {
         QString downloadUrl = dataObj.value("url").toString();
-        if ( false == downloadUrl.isEmpty()){
-             QNetworkReply *reply = HttpClient::instance()->downloadWallpaperRequest(downloadUrl);
-             connect(reply, &QNetworkReply::finished, this, &WallpaperItem::saveWallpaper);
+        if ( false == downloadUrl.isEmpty()) {
+            QNetworkReply *reply = HttpClient::instance()->downloadWallpaperRequest(downloadUrl);
+            connect(reply, &QNetworkReply::finished, this, &WallpaperItem::saveWallpaper);
         }
     }
 }
 
 void WallpaperItem::saveWallpaper()
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply*>(QObject::sender());
+    QNetworkReply *reply = qobject_cast<QNetworkReply *>(QObject::sender());
+    reply->deleteLater();
 
-    QSize imageSize = CommonHelper::parseUrlImageSize(reply->request().url().url());
-
+    imageSize = CommonHelper::parseUrlImageSize(reply->request().url().url());
+    imageFormat = CommonHelper::parseUrlImageFormat(reply->request().url().url());
+    if ( imageSize.width() > 0 && imageSize.height() > 0 && true != imageFormat.isEmpty()) {
+        image = new QImage(imageSize.width(), imageSize.height(), QImage::Format_RGB32);
+        imageLoadResult = image->loadFromData(reply->readAll(), imageFormat.toStdString().c_str());
+    }
 }

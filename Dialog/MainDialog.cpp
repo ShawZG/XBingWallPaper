@@ -1,7 +1,8 @@
-#include <QListView>
 #include <QVBoxLayout>
 #include "FramelessWidget.h"
 #include "Common/WallpaperItem.h"
+#include "WallpaperListView.h"
+#include "WallpaperItemDelegate.h"
 #include "MainDialog.h"
 
 MainDialog::MainDialog(QWidget *parent)
@@ -27,18 +28,17 @@ void MainDialog::initUI()
     initMainWidget();
 
     QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->setContentsMargins(2, 2, 2, 2);
+    vLayout->setContentsMargins(2, 40, 2, 40);
     vLayout->addWidget(mainWidget);
     setLayout(vLayout);
 }
 
 void MainDialog::initMainWidget()
 {
-    wallpaperList = new QListView();
-    wallpaperList->setViewMode(QListView::IconMode);
+    wallpaperList = new WallpaperListView();
 
     QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->setContentsMargins(0 ,0 ,0 ,0);
+    vLayout->setContentsMargins(0, 0, 0, 0);
     vLayout->addWidget(wallpaperList);
 
     mainWidget = new QWidget();

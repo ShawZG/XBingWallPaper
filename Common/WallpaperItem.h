@@ -3,12 +3,23 @@
 
 #include <QDate>
 #include <QObject>
+#include <QSize>
 
 class WallpaperItem : public QObject
 {
     Q_OBJECT
 public:
     explicit WallpaperItem(QDate date, QObject *parent = nullptr);
+    WallpaperItem();
+    WallpaperItem(const WallpaperItem &item);
+    ~WallpaperItem();
+
+    qint64  distanceToday = -1;
+    QDate   imageData = QDate();
+    QImage  *image = nullptr;
+    QSize   imageSize = QSize(0, 0);
+    QString imageFormat = QString();
+    bool    imageLoadResult = false;
 
 private slots:
     void parseWallpaperUrlRequest();
@@ -17,10 +28,8 @@ private slots:
 private:
     void getWallpaperUrlRequest();
     void downloadWallpaperRequest();
-
-    QDate   wallpaperData;
-    int     distanceToday = -1;
-    QImage  *wallpaper = nullptr;
 };
+
+Q_DECLARE_METATYPE(WallpaperItem)
 
 #endif // WALLPAPERITEM_H

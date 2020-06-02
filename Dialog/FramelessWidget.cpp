@@ -7,12 +7,11 @@
 FramelessWidget::FramelessWidget(QObject *parent) : QObject(parent)
 {
     if (parent->isWidgetType()) {
-        setFramelessWidget(qobject_cast<QWidget*>(parent));
+        setFramelessWidget(qobject_cast<QWidget *>(parent));
     }
 }
 
-
-void FramelessWidget::generatePaddingRect()
+void FramelessWidget::updatePaddingRect()
 {
     //重新计算八个描点的区域,描点区域的作用还有就是计算鼠标坐标是否在某一个区域内
     int width = widget->width();
@@ -134,10 +133,10 @@ bool FramelessWidget::eventFilter(QObject *watched, QEvent *event)
 {
     if (nullptr != widget && watched == widget) {
         if (event->type() == QEvent::Resize) {
-            generatePaddingRect();
+            updatePaddingRect();
         } else if (event->type() == QEvent::HoverMove) {
             //设置对应鼠标形状,这个必须放在这里而不是下面,因为可以在鼠标没有按下的时候识别
-            QHoverEvent *hoverEvent = dynamic_cast<QHoverEvent*>(event);
+            QHoverEvent *hoverEvent = dynamic_cast<QHoverEvent *>(event);
             QPoint point = hoverEvent->pos();
             if (resizeEnable) {
                 setMouseCursor(point);
@@ -154,7 +153,7 @@ bool FramelessWidget::eventFilter(QObject *watched, QEvent *event)
             }
         } else if (event->type() == QEvent::MouseButtonPress) {
             //记住当前控件坐标和宽高以及鼠标按下的坐标
-            QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent*>(event);
+            QMouseEvent *mouseEvent = dynamic_cast<QMouseEvent *>(event);
             rectX = widget->x();
             rectY = widget->y();
             rectW = widget->width();

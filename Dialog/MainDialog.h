@@ -7,19 +7,20 @@ class FramelessWidget;
 class QListView;
 class QLabel;
 class QCheckBox;
+class WallpaperListView;
 
 class MainDialog : public QDialog
 {
     Q_OBJECT
 public:
-    MainDialog(QWidget *parent = 0);
+    MainDialog(QWidget *parent = nullptr);
     ~MainDialog();
 
 private:
     void initUI();
     void initMainWidget();
 
-    FramelessWidget* framelessWidget = nullptr;
+    FramelessWidget *framelessWidget = nullptr;
 
     QWidget     *titleWidget = nullptr;
     QLabel      *appLogoLabel = nullptr;
@@ -27,8 +28,8 @@ private:
     QPushButton *appMaxButton = nullptr;
     QPushButton *appCloseButton = nullptr;
 
-    QWidget     *mainWidget = nullptr;
-    QListView   *wallpaperList = nullptr;
+    QWidget             *mainWidget = nullptr;
+    WallpaperListView   *wallpaperList = nullptr;
 
     QWidget     *bottomWidget = nullptr;
     QCheckBox   *autoRunButton = nullptr;

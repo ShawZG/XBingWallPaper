@@ -48,14 +48,12 @@ bool HttpClient::validateReplay(QNetworkReply *reply, QJsonDocument &doc)
         qDebug() << jsonError.errorString();
 #endif
         return false;
-    }
-    else
-    {
+    } else {
         return true;
     }
 }
 
-QNetworkReply* HttpClient::getBingWallpaperUrlRequest(int distanceDay, int width, int height)
+QNetworkReply *HttpClient::getBingWallpaperUrlRequest(qint64 distanceDay, int width, int height)
 {
     //https://bing.ioliu.cn/v1/?type=json&d=3
     //https://bing.ioliu.cn/v1/?d=1&w=1920&h=1080
@@ -64,7 +62,7 @@ QNetworkReply* HttpClient::getBingWallpaperUrlRequest(int distanceDay, int width
     return manager->get(QNetworkRequest(url));
 }
 
-QNetworkReply* HttpClient::downloadWallpaperRequest(QString url)
+QNetworkReply *HttpClient::downloadWallpaperRequest(QString url)
 {
     return manager->get(QNetworkRequest(url));
 }
