@@ -1,0 +1,9 @@
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
+#endif // GLOBAL_H
+
+const int LIST_VIEWPORT_MARGIN_LEFT = 20;
+const int LIST_VIEWPORT_MARGIN_TOP = 20;
+const int LIST_VIEWPORT_MARGIN_RIGHT = 20;
+const int LIST_VIEWPORT_MARGIN_BOTTOM = 20;

@@ -1,36 +1,57 @@
 #include <QStandardItem>
 #include <QVariant>
 #include <QTimer>
+#include <QScrollBar>
+#include <QScroller>
+#include <QDebug>
+#include <QAbstractScrollArea>
 
 #include <QStandardItemModel>
 #include "Common/WallpaperItem.h"
 #include "Common/AppConfig.h"
+#include "Common/Global.h"
 #include "WallpaperItemDelegate.h"
 #include "WallpaperListView.h"
 
 WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)
 {
     initListView();
-    initLoadImage(1);
+    loadImages(AppConfig::getInitShowImageRowNum());
+    initConnect();
     initTimer();
 }
 
 void WallpaperListView::initListView()
 {
+    setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setViewMode(QListView::IconMode);
     setResizeMode(QListView::Adjust);
     setMovement(QListView::Static);
+    setFlow(QListView::LeftToRight);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
-    setItemAlignment(Qt::AlignCenter);
-    setLayoutMode(QListView::Batched);
-    setDragEnabled(false);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
     setSpacing(0);
+    setWrapping(true);
     itemModel = new QStandardItemModel();
     setModel(itemModel);
     setItemDelegate(new WallpaperItemDelegate(this));
+
+    QScrollBar *vScrollBar = verticalScrollBar();
+    vScrollBar->setFixedWidth(16);
 }
 
-void WallpaperListView::initLoadImage(int row)
+void WallpaperListView::initConnect()
+{
+    QScrollBar *vScrollBar = verticalScrollBar();
+    connect(vScrollBar, &QScrollBar::valueChanged, [this, vScrollBar](int value) {
+        if (vScrollBar->maximum() == value) {
+            this->loadImages(1);
+        }
+    });
+}
+
+void WallpaperListView::loadImages(int row)
 {
     int imageNumPerRow = AppConfig::getImageNumPerRowInListView();
     for (int i = 0; i < row * imageNumPerRow; i++) {
@@ -50,4 +71,28 @@ void WallpaperListView::initTimer()
         this->update();
     });
     updateTimer->start();
+}
+
+void WallpaperListView::updateGridSize()
+{
+    int imageNumPerRow = AppConfig::getImageNumPerRowInListView();
+    int width = (viewport()->width() - 4) / imageNumPerRow;
+    QSize size = AppConfig::screenGeometry();
+    size.scale(width, width, Qt::KeepAspectRatio);
+    //setIconSize(size);
+    setGridSize(size);
+}
+
+void WallpaperListView::resizeEvent(QResizeEvent *event)
+{
+    Q_UNUSED(event);
+    updateGridSize();
+    QListView::resizeEvent(event);
+}
+
+void WallpaperListView::showEvent(QShowEvent *event)
+{
+    Q_UNUSED(event);
+    updateGridSize();
+    QListView::showEvent(event);
 }

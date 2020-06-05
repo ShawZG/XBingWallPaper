@@ -28,6 +28,7 @@ private slots:
 private:
     void getWallpaperUrlRequest();
     void downloadWallpaperRequest();
+    void loadImageFromFile();
 };
 
 Q_DECLARE_METATYPE(WallpaperItem)

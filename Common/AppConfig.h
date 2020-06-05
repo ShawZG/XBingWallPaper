@@ -16,6 +16,7 @@ public:
     static QSize    screenGeometry();
     static void     setImageNumPerRowInListView(int num);
     static int      getImageNumPerRowInListView();
+    static int      getInitShowImageRowNum();
 
 private:
     static void        loadConfig();
@@ -26,6 +27,7 @@ private:
     static QString      appVer;
     static QSize        screenSize;
     static int          defaultImageNumPerRow;
+    static int          initShowImageRowNum;
 };
 
 #endif // APPCONFIG_H

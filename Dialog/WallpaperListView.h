@@ -12,10 +12,16 @@ class WallpaperListView : public QListView
 public:
     explicit WallpaperListView(QWidget *parent = nullptr);
 
+protected:
+    void resizeEvent(QResizeEvent *event);
+    void showEvent(QShowEvent *event);
+
 private:
     void initListView();
-    void initLoadImage(int row);
+    void initConnect();
+    void loadImages(int row);
     void initTimer();
+    void updateGridSize();
 
     QStandardItemModel *itemModel = nullptr;
     QDate               earliestData = QDate::currentDate() ;

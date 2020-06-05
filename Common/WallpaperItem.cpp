@@ -15,6 +15,7 @@ WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent), ima
         distanceToday = imageData.daysTo(QDate::currentDate());
     }
     getWallpaperUrlRequest();
+    //loadImageFromFile();
 }
 
 WallpaperItem::WallpaperItem()
@@ -90,5 +91,13 @@ void WallpaperItem::saveWallpaper()
     if ( imageSize.width() > 0 && imageSize.height() > 0 && true != imageFormat.isEmpty()) {
         image = new QImage(imageSize.width(), imageSize.height(), QImage::Format_RGB32);
         imageLoadResult = image->loadFromData(reply->readAll(), imageFormat.toStdString().c_str());
+        qDebug() << QString("download %1 image %2").arg(imageData.toString()).arg(imageLoadResult);
     }
+}
+
+void WallpaperItem::loadImageFromFile()
+{
+    image = new QImage("/home/xiaozhiguo/Colorful-Abstraction02.jpeg");
+    imageLoadResult = true;
+    imageSize = image->size();
 }

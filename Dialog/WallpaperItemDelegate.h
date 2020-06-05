@@ -13,6 +13,10 @@ public:
     QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const Q_DECL_OVERRIDE;
 
 private:
+    QRect adjustNormalImageRect(const QRect &rect) const;
+    QRect adjustSelectedImageRect(const QRect &rect) const;
+    void paintImage(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const;
+
     QWidget *parentWidget = nullptr;
 };
 
