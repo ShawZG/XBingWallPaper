@@ -18,6 +18,9 @@ public:
     static int      getImageNumPerRowInListView();
     static int      getInitShowImageRowNum();
 
+    static QRect    getAppGeometry();
+    static void     setAppGeometry(QRect rect);
+
 private:
     static void        loadConfig();
     static QVariant    getConfig(QString key, QVariant defaultValue);

@@ -7,11 +7,11 @@
 #include <QAbstractScrollArea>
 
 #include <QStandardItemModel>
-#include "Common/WallpaperItem.h"
-#include "Common/AppConfig.h"
-#include "Common/Global.h"
+#include "src/Common/AppConfig.h"
+#include "src/Common/Global.h"
 #include "WallpaperItemDelegate.h"
 #include "WallpaperListView.h"
+#include "WallpaperItem.h"
 
 WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)
 {
@@ -30,7 +30,7 @@ void WallpaperListView::initListView()
     setFlow(QListView::LeftToRight);
     setEditTriggers(QAbstractItemView::NoEditTriggers);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
     setSpacing(0);
     setWrapping(true);
     itemModel = new QStandardItemModel();
@@ -76,7 +76,7 @@ void WallpaperListView::initTimer()
 void WallpaperListView::updateGridSize()
 {
     int imageNumPerRow = AppConfig::getImageNumPerRowInListView();
-    int width = (viewport()->width() - 4) / imageNumPerRow;
+    int width = (viewport()->width() - 1) / imageNumPerRow;
     QSize size = AppConfig::screenGeometry();
     size.scale(width, width, Qt::KeepAspectRatio);
     //setIconSize(size);

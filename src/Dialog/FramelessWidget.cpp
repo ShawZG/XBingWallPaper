@@ -35,7 +35,6 @@ void FramelessWidget::updatePaddingRect()
     rectRightBottom = QRect(width - padding, height - padding, padding, padding);
 }
 
-
 void FramelessWidget::setMouseCursor(QPoint point)
 {
     if (rectLeft.contains(point)) {

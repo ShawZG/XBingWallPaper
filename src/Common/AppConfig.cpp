@@ -8,7 +8,7 @@ QSettings  *AppConfig::setting = nullptr;
 QSize       AppConfig::screenSize = QSize(1920, 1080);
 
 int         AppConfig::defaultImageNumPerRow = 4;
-int         AppConfig::initShowImageRowNum = 2;
+int         AppConfig::initShowImageRowNum = 8;
 
 AppConfig::AppConfig(QObject *parent) : QObject(parent)
 {
@@ -27,6 +27,16 @@ QSize AppConfig::screenGeometry()
 int AppConfig::getInitShowImageRowNum()
 {
     return AppConfig::initShowImageRowNum;
+}
+
+QRect AppConfig::getAppGeometry()
+{
+    return AppConfig::getConfig("AppGeometry", QRect()).toRect();
+}
+
+void AppConfig::setAppGeometry(QRect rect)
+{
+    AppConfig::setConfig("AppGeometry", rect);
 }
 
 void AppConfig::setImageNumPerRowInListView(int num)

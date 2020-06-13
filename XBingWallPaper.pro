@@ -24,13 +24,23 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 CONFIG += c++11
 
-include(Common/Common.pri)
-include(Dialog/Dialog.pri)
+include(src/Common/Common.pri)
+include(src/Dialog/Dialog.pri)
+include(src/ListViewModel/ListViewModel.pri)
 
 SOURCES += \
-        main.cpp
+        src/main.cpp
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+CONFIG(debug, debug|release) {
+    BUILD_MODE = debug
+} else {
+    BUILD_MODE = release
+}
+DESTDIR = $${PWD}/build/$${BUILD_MODE}/bin
+MOC_DIR = $${PWD}/build/$${BUILD_MODE}/moc
+RCC_DIR = $${PWD}/build/$${BUILD_MODE}/rcc
+UI_DIR = $${PWD}/build/$${BUILD_MODE}/ui
+unix:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/unix
+win32:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/win32
+macx:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/mac
+

@@ -4,9 +4,9 @@
 #include <QDebug>
 #include <QListView>
 
-#include "Common/AppConfig.h"
-#include "Common/Global.h"
-#include "Common/WallpaperItem.h"
+#include "src/Common/AppConfig.h"
+#include "src/Common/Global.h"
+#include "WallpaperItem.h"
 #include "WallpaperItemDelegate.h"
 
 WallpaperItemDelegate::WallpaperItemDelegate(QWidget *parent) : parentWidget(parent)
@@ -33,9 +33,25 @@ QRect WallpaperItemDelegate::adjustSelectedImageRect(const QRect &rect) const
 
 void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    if (true == option.state.testFlag(QStyle::State_Selected)) {
-
+    QString str = QString("(%1, %2, %3 x %4)").arg(option.rect.x()).arg(option.rect.y()).arg(option.rect.width()).arg(option.rect.height());
+    WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
+    QRect adjustRect = option.rect.adjusted(0, 0, 0, 0);
+    if ( true == item->imageLoadResult) {
+        if (false == option.state.testFlag(QStyle::State_Selected)) {
+            adjustRect = adjustNormalImageRect(adjustRect);
+        }
+        QPainterPath clipPath;
+        clipPath.addRoundedRect(adjustRect, 6, 6);
+        painter->setPen(Qt::transparent);
+        painter->setClipPath(clipPath);
+        painter->drawImage(clipPath.boundingRect().toRect(), *(item->image));
+        painter->drawPath(clipPath);
     }
+#ifdef QT_DEBUG
+    painter->drawRect(adjustRect);
+    painter->drawText(adjustRect, str);
+#endif
+
 }
 
 void WallpaperItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
@@ -43,18 +59,7 @@ void WallpaperItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem 
     if (index.isValid() && index.data(Qt::DisplayRole).canConvert<WallpaperItem *>()) {
         painter->save();
         painter->setRenderHint(QPainter::Antialiasing, true);
-        WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
-        QString str = QString("(%1, %2, %3 x %4)").arg(option.rect.x()).arg(option.rect.y()).arg(option.rect.width()).arg(option.rect.height()) ;
-        QRect adjustRect = option.rect.adjusted(0, 0, 0, 0);
-        painter->drawRect(adjustRect);
-        if ( true == item->imageLoadResult) {
-            if (true == option.state.testFlag(QStyle::State_Selected)) {
-                painter->drawImage((adjustRect), *(item->image));
-            } else {
-                painter->drawImage(adjustNormalImageRect(adjustRect), *(item->image));
-            }
-        }
-        painter->drawText(adjustRect, str);
+        paintImage(painter, option, index);
         painter->restore();
     } else {
         QStyledItemDelegate::paint(painter, option, index);
