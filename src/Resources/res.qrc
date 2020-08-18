@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>download_wallpaper.svg</file>
+        <file>set_wallpaper.svg</file>
+        <file>logo.svg</file>
+        <file>preview_wallpaper.svg</file>
+    </qresource>
+</RCC>

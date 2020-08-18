@@ -33,11 +33,12 @@ QRect WallpaperItemDelegate::adjustSelectedImageRect(const QRect &rect) const
 
 void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    QString str = QString("(%1, %2, %3 x %4)").arg(option.rect.x()).arg(option.rect.y()).arg(option.rect.width()).arg(option.rect.height());
     WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
     QRect adjustRect = option.rect.adjusted(0, 0, 0, 0);
     if ( true == item->imageLoadResult) {
-        if (false == option.state.testFlag(QStyle::State_Selected)) {
+        QPoint mousePoint = parentWidget->mapFromGlobal(QCursor::pos());
+        if (/* false == option.state.testFlag(QStyle::State_Selected)
+             && */false == option.rect.contains(mousePoint)) {
             adjustRect = adjustNormalImageRect(adjustRect);
         }
         QPainterPath clipPath;
@@ -48,10 +49,10 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
         painter->drawPath(clipPath);
     }
 #ifdef QT_DEBUG
+    QString str = QString("(%1, %2, %3 x %4)").arg(option.rect.x()).arg(option.rect.y()).arg(option.rect.width()).arg(option.rect.height());
     painter->drawRect(adjustRect);
     painter->drawText(adjustRect, str);
 #endif
-
 }
 
 void WallpaperItemDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const

@@ -3,10 +3,12 @@
 #include <QTimer>
 #include <QScrollBar>
 #include <QScroller>
+#include <QMenu>
+#include <QAction>
 #include <QDebug>
 #include <QAbstractScrollArea>
-
 #include <QStandardItemModel>
+
 #include "src/Common/AppConfig.h"
 #include "src/Common/Global.h"
 #include "WallpaperItemDelegate.h"
@@ -23,6 +25,7 @@ WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)
 
 void WallpaperListView::initListView()
 {
+    setFrameShape(QFrame::NoFrame);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
     setViewMode(QListView::IconMode);
     setResizeMode(QListView::Adjust);
@@ -39,6 +42,9 @@ void WallpaperListView::initListView()
 
     QScrollBar *vScrollBar = verticalScrollBar();
     vScrollBar->setFixedWidth(16);
+
+    setContextMenuPolicy(Qt::CustomContextMenu);
+    initMenu();
 }
 
 void WallpaperListView::initConnect()
@@ -49,6 +55,8 @@ void WallpaperListView::initConnect()
             this->loadImages(1);
         }
     });
+
+    connect(this, &WallpaperListView::customContextMenuRequested, this, &WallpaperListView::slotShowMenu);
 }
 
 void WallpaperListView::loadImages(int row)
@@ -66,10 +74,8 @@ void WallpaperListView::initTimer()
 {
     updateTimer = new QTimer();
     updateTimer->setSingleShot(false);
-    updateTimer->setInterval(50);
-    connect(updateTimer, &QTimer::timeout, [this]() {
-        this->update();
-    });
+    updateTimer->setInterval(100);
+    connect(updateTimer, &QTimer::timeout, [this](){this->update();});
     updateTimer->start();
 }
 
@@ -81,6 +87,19 @@ void WallpaperListView::updateGridSize()
     size.scale(width, width, Qt::KeepAspectRatio);
     //setIconSize(size);
     setGridSize(size);
+}
+
+void WallpaperListView::initMenu()
+{
+    menu = new QMenu(this);
+    QAction *setAction = menu->addAction(QIcon(":/images/set_wallpaper.svg"), tr("set to wallpaper"));
+    connect(setAction, &QAction::toggle, this, [](){});
+
+    QAction *downloadAction = menu->addAction(QIcon(":/images/download_wallpaper.svg"), tr("download wallpaper"));
+    connect(downloadAction, &QAction::toggle, this, [](){});
+
+    QAction *previewAction = menu->addAction(QIcon(":/images/preivew_wallpaper.svg"), tr("preview wallpaper"));
+    connect(previewAction, &QAction::toggle, this, [](){});
 }
 
 void WallpaperListView::resizeEvent(QResizeEvent *event)
@@ -95,4 +114,12 @@ void WallpaperListView::showEvent(QShowEvent *event)
     Q_UNUSED(event);
     updateGridSize();
     QListView::showEvent(event);
+}
+
+void WallpaperListView::slotShowMenu(const QPoint &pos)
+{
+    Q_UNUSED(pos);
+    if (true != selectionModel()->selectedIndexes().isEmpty()){
+        menu->exec(QCursor::pos());
+    }
 }

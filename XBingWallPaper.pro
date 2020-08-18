@@ -44,3 +44,6 @@ unix:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/unix
 win32:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/win32
 macx:OBJECTS_DIR = $${PWD}/build/$${BUILD_MODE}/obj/mac
 
+RESOURCES += \
+    src/Resources/res.qrc
+
