@@ -4,5 +4,6 @@
         <file>set_wallpaper.svg</file>
         <file>logo.svg</file>
         <file>preview_wallpaper.svg</file>
+        <file>close_preview.svg</file>
     </qresource>
 </RCC>

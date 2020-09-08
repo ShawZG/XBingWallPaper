@@ -26,7 +26,7 @@ private:
     void updateGeometry(int offsetX, int offsetY);
     void updateMousePressPaddingRect();
 
-    int padding = 12;                       //边距
+    int padding = 8;                        //边距
     bool moveEnable = true;                 //可移动
     bool resizeEnable = true;               //可拉伸
     QWidget *widget = nullptr;              //无边框窗体

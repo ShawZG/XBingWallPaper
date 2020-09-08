@@ -13,11 +13,12 @@ public:
     explicit WallpaperListView(QWidget *parent = nullptr);
 
 protected:
-    void resizeEvent(QResizeEvent *event);
-    void showEvent(QShowEvent *event);
+    void resizeEvent(QResizeEvent *event) override;
+    void showEvent(QShowEvent *event) override;
 
 private slots:
     void slotShowMenu(const QPoint &pos);
+    void slotShowPreview(const QModelIndex &index);
 
 private:
     void initListView();

@@ -11,9 +11,10 @@
 
 #include "src/Common/AppConfig.h"
 #include "src/Common/Global.h"
+#include "src/Dialog/PreviewWallpaperDialog.h"
 #include "WallpaperItemDelegate.h"
-#include "WallpaperListView.h"
 #include "WallpaperItem.h"
+#include "WallpaperListView.h"
 
 WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)
 {
@@ -57,6 +58,7 @@ void WallpaperListView::initConnect()
     });
 
     connect(this, &WallpaperListView::customContextMenuRequested, this, &WallpaperListView::slotShowMenu);
+    connect(this, &WallpaperListView::doubleClicked, this, &WallpaperListView::slotShowPreview);
 }
 
 void WallpaperListView::loadImages(int row)
@@ -99,7 +101,7 @@ void WallpaperListView::initMenu()
     connect(downloadAction, &QAction::toggle, this, [](){});
 
     QAction *previewAction = menu->addAction(QIcon(":/images/preivew_wallpaper.svg"), tr("preview wallpaper"));
-    connect(previewAction, &QAction::toggle, this, [](){});
+    //connect(previewAction, &QAction::toggle, this, [this](){this->slotShowPreview();});
 }
 
 void WallpaperListView::resizeEvent(QResizeEvent *event)
@@ -121,5 +123,15 @@ void WallpaperListView::slotShowMenu(const QPoint &pos)
     Q_UNUSED(pos);
     if (true != selectionModel()->selectedIndexes().isEmpty()){
         menu->exec(QCursor::pos());
+    }
+}
+
+void WallpaperListView::slotShowPreview(const QModelIndex &index)
+{
+    if (true == index.isValid()) {
+        PreviewWallpaperDialog dialog;
+        WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem*>();
+        dialog.setWallpaper(*(item->image));
+        dialog.exec();
     }
 }

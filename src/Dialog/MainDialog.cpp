@@ -66,7 +66,7 @@ void MainDialog::paintEvent(QPaintEvent *event)
     QRect dialogRect;
     dialogRect.setWidth(rect().width() - 1);
     dialogRect.setHeight(rect().height() - 1);
-    painter.drawRoundedRect(dialogRect, 15, 15);
+    painter.drawRoundedRect(dialogRect, 8, 8);
     QDialog::paintEvent(event);
 }
 
