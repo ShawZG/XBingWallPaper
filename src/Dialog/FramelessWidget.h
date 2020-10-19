@@ -19,6 +19,8 @@ protected:
     bool eventFilter(QObject *watched, QEvent *event);
 
 private:
+    void x11mouseMoveEvent(int globalX, int globalY);
+
     void setFramelessWidget(QWidget *widget);
 
     void updatePaddingRect();

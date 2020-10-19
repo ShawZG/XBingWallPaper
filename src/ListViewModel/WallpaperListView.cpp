@@ -9,11 +9,12 @@
 #include <QAbstractScrollArea>
 #include <QStandardItemModel>
 
-#include "src/Common/AppConfig.h"
-#include "src/Common/Global.h"
-#include "src/Dialog/PreviewWallpaperDialog.h"
+#include "AppConfig.h"
+#include "Global.h"
+#include "PreviewWallpaperDialog.h"
 #include "WallpaperItemDelegate.h"
 #include "WallpaperItem.h"
+
 #include "WallpaperListView.h"
 
 WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)

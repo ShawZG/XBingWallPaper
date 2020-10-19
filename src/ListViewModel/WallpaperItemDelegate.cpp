@@ -4,9 +4,10 @@
 #include <QDebug>
 #include <QListView>
 
-#include "src/Common/AppConfig.h"
-#include "src/Common/Global.h"
+#include "AppConfig.h"
+#include "Global.h"
 #include "WallpaperItem.h"
+
 #include "WallpaperItemDelegate.h"
 
 WallpaperItemDelegate::WallpaperItemDelegate(QWidget *parent) : parentWidget(parent)

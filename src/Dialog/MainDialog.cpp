@@ -3,12 +3,14 @@
 #include <QPalette>
 #include <QPainter>
 #include <QGuiApplication>
+
 #include "FramelessWidget.h"
-#include "src/Common/AppConfig.h"
-#include "src/Common/Global.h"
-#include "src/ListViewModel/WallpaperItem.h"
-#include "src/ListViewModel/WallpaperListView.h"
-#include "src/ListViewModel/WallpaperItemDelegate.h"
+#include "AppConfig.h"
+#include "Global.h"
+#include "WallpaperItem.h"
+#include "WallpaperListView.h"
+#include "WallpaperItemDelegate.h"
+
 #include "MainDialog.h"
 
 MainDialog::MainDialog(QWidget *parent)
@@ -30,7 +32,7 @@ void MainDialog::initUI()
     initMainWidget();
 
     QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->setContentsMargins(20, 40, 20, 40);
+    vLayout->setContentsMargins(8, 40, 8, 20);
     vLayout->addWidget(mainWidget);
     setLayout(vLayout);
 

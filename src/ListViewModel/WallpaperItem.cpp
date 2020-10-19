@@ -4,9 +4,10 @@
 #include <QImage>
 #include <QDebug>
 
-#include "src/Common/HttpClient.h"
-#include "src/Common/CommonHelper.h"
-#include "src/Common/AppConfig.h"
+#include "HttpClient.h"
+#include "CommonHelper.h"
+#include "AppConfig.h"
+
 #include "WallpaperItem.h"
 
 WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent), imageData(date)

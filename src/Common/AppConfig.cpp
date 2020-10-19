@@ -1,9 +1,14 @@
 #include <QApplication>
 #include <QScreen>
 #include <QSettings>
+
+#include "Version.h"
+
 #include "AppConfig.h"
 
-QString     AppConfig::appVer = "1.0.0";
+QString     AppConfig::appVer = QString("%1.%2.%3").arg(PROJECT_VERSION_MAJOR)
+                                                   .arg(PROJECT_VERSION_MINOR)
+                                                   .arg(PROJECT_VERSION_PATCH);
 QSettings  *AppConfig::setting = nullptr;
 QSize       AppConfig::screenSize = QSize(1920, 1080);
 
@@ -62,7 +67,7 @@ void AppConfig::loadConfig()
     QSettings::sync() Writes any unsaved changes to permanent storage, and reloads any settings
     that have been changed in the meantime by another application.
     */
-    AppConfig::setting = new QSettings("xbingwallpaper.config", QSettings::NativeFormat);
+    AppConfig::setting = new QSettings();
 }
 
 QVariant AppConfig::getConfig(QString key, QVariant defaultValue)
