@@ -9,6 +9,8 @@ class CommonHelper : public QObject
 public:
     explicit CommonHelper(QObject *parent = nullptr);
 
+    static void     setStyle(const QString &stylePath);
+
     static bool     getJsonValue(QJsonObject obj, QString key, QVariant &value);
     static QSize    parseUrlImageSize(QString url);
     static QString  parseUrlImageFormat(QString url);

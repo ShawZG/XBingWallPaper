@@ -4,8 +4,10 @@
 
 #include "singleapplication.h"
 #include "CommonHelper.h"
+#include "DarkStyle.h"
 #include "MainDialog.h"
 #include "AppConfig.h"
+#include "CommonHelper.h"
 #include "Dialog/MainDialog.h"
 
 int main(int argc, char *argv[])
@@ -15,6 +17,7 @@ int main(int argc, char *argv[])
 
     SingleApplication app(argc, argv,  true, SingleApplication::User, 100 );
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
+    app.setStyle(new DarkStyle);
     app.setApplicationName("xbingwallpaper");
     app.setApplicationVersion(AppConfig::getAppVersion());
     app.setOrganizationName("xzg");
@@ -26,7 +29,7 @@ int main(int argc, char *argv[])
 #endif
 
 //    CommonHelper::setApplicationFont(":/font/font/yaheisongti.ttf");
-//    CommonHelper::setStyle(QString(":/dark_style/dark_style/darkstyle.qss"));
+    CommonHelper::setStyle(QString(":/dark_style/dark_style/darkstyle.qss"));
 
     MainDialog w;
 

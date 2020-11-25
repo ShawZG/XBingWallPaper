@@ -8,6 +8,7 @@ class QListView;
 class QLabel;
 class QCheckBox;
 class WallpaperListView;
+class TitleWidget;
 
 class MainDialog : public QDialog
 {
@@ -22,18 +23,13 @@ protected:
 
 private:
     void initUI();
+    void initTitleWidget();
     void initMainWidget();
     void adjustDialogSize();
     void restoreAppGeometry();
 
-    FramelessWidget *framelessWidget = nullptr;
-
-    QWidget     *titleWidget = nullptr;
-    QLabel      *appLogoLabel = nullptr;
-    QPushButton *appMiniButton = nullptr;
-    QPushButton *appMaxButton = nullptr;
-    QPushButton *appCloseButton = nullptr;
-
+    TitleWidget         *titleWidget = nullptr;
+    FramelessWidget     *framelessWidget = nullptr;
     QWidget             *mainWidget = nullptr;
     WallpaperListView   *wallpaperList = nullptr;
 

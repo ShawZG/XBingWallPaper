@@ -4,6 +4,7 @@
 #include <QPainter>
 #include <QGuiApplication>
 
+#include "TitleWidget.h"
 #include "FramelessWidget.h"
 #include "AppConfig.h"
 #include "Global.h"
@@ -29,14 +30,28 @@ void MainDialog::initUI()
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
+    initTitleWidget();
     initMainWidget();
 
     QVBoxLayout *vLayout = new QVBoxLayout();
-    vLayout->setContentsMargins(8, 40, 8, 20);
-    vLayout->addWidget(mainWidget);
+    vLayout->setContentsMargins(0, 0, 0, 0);
+    vLayout->setSpacing(0);
+    vLayout->addWidget(titleWidget);
+    /* 不遮挡MainDialog的圆角矩形 */
+    QHBoxLayout *hLayout = new QHBoxLayout();
+    hLayout->setContentsMargins(8, 0, 8, 8);
+    hLayout->setSpacing(0);
+    hLayout->addWidget(mainWidget);
+
+    vLayout->addLayout(hLayout);
     setLayout(vLayout);
 
     adjustDialogSize();
+}
+
+void MainDialog::initTitleWidget()
+{
+    titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), "XBingWallPaper", true, true, true, this);
 }
 
 void MainDialog::initMainWidget()
@@ -68,7 +83,7 @@ void MainDialog::paintEvent(QPaintEvent *event)
     QRect dialogRect;
     dialogRect.setWidth(rect().width() - 1);
     dialogRect.setHeight(rect().height() - 1);
-    painter.drawRoundedRect(dialogRect, 8, 8);
+    painter.drawRoundedRect(dialogRect, 10, 10);
     QDialog::paintEvent(event);
 }
 

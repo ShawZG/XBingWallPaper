@@ -7,7 +7,7 @@ class FramelessWidget : public QObject
 {
     Q_OBJECT
 public:
-    explicit FramelessWidget(QObject *parent = 0);
+    explicit FramelessWidget(QObject *parent = nullptr);
 
 public slots:
     //设置边距

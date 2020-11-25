@@ -1,6 +1,9 @@
 #include <QJsonObject>
 #include <QVariant>
 #include <QSize>
+#include <QFile>
+#include <QApplication>
+
 #include "CommonHelper.h"
 
 CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
@@ -8,6 +11,14 @@ CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
 
 }
 
+void CommonHelper::setStyle(const QString &stylePath)
+{
+    QFile qss(stylePath);
+    if (true == qss.open(QFile::ReadOnly)) {
+        qApp->setStyleSheet(qss.readAll());
+        qss.close();
+    }
+}
 
 bool CommonHelper::getJsonValue(QJsonObject obj, QString key, QVariant &value)
 {

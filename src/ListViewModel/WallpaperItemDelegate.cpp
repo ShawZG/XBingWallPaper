@@ -39,7 +39,7 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
     if ( true == item->imageLoadResult) {
         QPoint mousePoint = parentWidget->mapFromGlobal(QCursor::pos());
         if (/* false == option.state.testFlag(QStyle::State_Selected)
-             && */false == option.rect.contains(mousePoint)) {
+             && */false == option.state.testFlag(QStyle::State_MouseOver)) {
             adjustRect = adjustNormalImageRect(adjustRect);
         }
         QPainterPath clipPath;

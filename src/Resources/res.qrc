@@ -1,9 +1,39 @@
 <RCC>
-    <qresource prefix="/images">
-        <file>download_wallpaper.svg</file>
-        <file>set_wallpaper.svg</file>
-        <file>logo.svg</file>
-        <file>preview_wallpaper.svg</file>
-        <file>close_preview.svg</file>
+    <qresource prefix="/app_images">
+        <file>app_images/download_wallpaper.svg</file>
+        <file>app_images/icon_window_close.png</file>
+        <file>app_images/icon_window_maximize.png</file>
+        <file>app_images/icon_window_minimize.png</file>
+        <file>app_images/icon_window_restore.png</file>
+        <file>app_images/icon_window_setting.png</file>
+        <file>app_images/logo.svg</file>
+        <file>app_images/preview_wallpaper.svg</file>
+        <file>app_images/set_wallpaper.svg</file>
+    </qresource>
+    <qresource prefix="/dark_style">
+        <file>dark_style/darkstyle.qss</file>
+        <file>dark_style/icon_branch_closed.png</file>
+        <file>dark_style/icon_branch_end.png</file>
+        <file>dark_style/icon_branch_more.png</file>
+        <file>dark_style/icon_branch_open.png</file>
+        <file>dark_style/icon_checkbox_checked.png</file>
+        <file>dark_style/icon_checkbox_checked_disabled.png</file>
+        <file>dark_style/icon_checkbox_checked_pressed.png</file>
+        <file>dark_style/icon_checkbox_indeterminate.png</file>
+        <file>dark_style/icon_checkbox_indeterminate_disabled.png</file>
+        <file>dark_style/icon_checkbox_indeterminate_pressed.png</file>
+        <file>dark_style/icon_checkbox_unchecked.png</file>
+        <file>dark_style/icon_checkbox_unchecked_disabled.png</file>
+        <file>dark_style/icon_checkbox_unchecked_pressed.png</file>
+        <file>dark_style/icon_close.png</file>
+        <file>dark_style/icon_radiobutton_checked.png</file>
+        <file>dark_style/icon_radiobutton_checked_disabled.png</file>
+        <file>dark_style/icon_radiobutton_checked_pressed.png</file>
+        <file>dark_style/icon_radiobutton_unchecked.png</file>
+        <file>dark_style/icon_radiobutton_unchecked_disabled.png</file>
+        <file>dark_style/icon_radiobutton_unchecked_pressed.png</file>
+        <file>dark_style/icon_restore.png</file>
+        <file>dark_style/icon_undock.png</file>
+        <file>dark_style/icon_vline.png</file>
     </qresource>
 </RCC>
