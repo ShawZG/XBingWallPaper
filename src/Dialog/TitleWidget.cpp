@@ -55,7 +55,9 @@ void TitleWidget::initUI()
 
     hLayout->addSpacing(4);
     if (true != titleIconPath.isEmpty()) {
-        titleIconLabel->setPixmap(QPixmap(titleIconPath).scaled(titleIconLabel->rect().size()));
+        titleIconLabel->setScaledContents(true);
+//        titleIconLabel->setPixmap(QPixmap(titleIconPath).scaled(titleIconLabel->rect().size()));
+        titleIconLabel->setPixmap(QPixmap(titleIconPath));
         titleIconLabel->show();
         hLayout->addWidget(titleIconLabel);
 

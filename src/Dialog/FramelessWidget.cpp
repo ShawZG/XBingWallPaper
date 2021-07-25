@@ -1,6 +1,7 @@
 #include <QEvent>
 #include <QDebug>
 #include <QHoverEvent>
+#include <QCursor>
 
 #ifdef Q_OS_LINUX
 #include <X11/Xlib.h>
