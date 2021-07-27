@@ -27,7 +27,7 @@ void PreviewWallpaperDialog::initUI()
     wallpaperQLabel = new QLabel();
     wallpaperQLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    QGridLayout *gLayout = new QGridLayout();
+    auto *gLayout = new QGridLayout();
     gLayout->setContentsMargins(2, 2, 2, 2);
     gLayout->addWidget(wallpaperQLabel, 0, 0, Qt::AlignCenter);
     gLayout->addWidget(closeButton, 0, 0, Qt::AlignTop | Qt::AlignRight);

@@ -20,7 +20,7 @@ QRect WallpaperItemDelegate::adjustNormalImageRect(const QRect &rect) const
     int y = rect.y() + static_cast<int>(rect.height() * 0.05);
     int width = static_cast<int>(rect.width() * 0.9);
     int height = static_cast<int>(rect.height() * 0.9);
-    return QRect(QPoint(x, y), QSize(width, height));
+    return {QPoint(x, y), QSize(width, height)};
 }
 
 QRect WallpaperItemDelegate::adjustSelectedImageRect(const QRect &rect) const
@@ -29,18 +29,19 @@ QRect WallpaperItemDelegate::adjustSelectedImageRect(const QRect &rect) const
     int y = rect.y() + static_cast<int>(rect.height() * 0.03);
     int width = static_cast<int>(rect.width() * 0.94);
     int height = static_cast<int>(rect.height() * 0.94);
-    return QRect(QPoint(x, y), QSize(width, height));
+    return {QPoint(x, y), QSize(width, height)};
 }
 
 void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-    WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
-    QRect adjustRect = option.rect.adjusted(0, 0, 0, 0);
-    if ( true == item->imageLoadResult) {
-        QPoint mousePoint = parentWidget->mapFromGlobal(QCursor::pos());
-        if (/* false == option.state.testFlag(QStyle::State_Selected)
-             && */false == option.state.testFlag(QStyle::State_MouseOver)) {
-            adjustRect = adjustNormalImageRect(adjustRect);
+    auto *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
+    QRect adjustRect;
+    if (item->imageLoadResult) {
+        if ( /*option.state.testFlag(QStyle::State_Selected)
+             || */option.state.testFlag(QStyle::State_MouseOver)) {
+            adjustRect = adjustSelectedImageRect(option.rect);
+        } else {
+            adjustRect = adjustNormalImageRect(option.rect);
         }
         QPainterPath clipPath;
         clipPath.addRoundedRect(adjustRect, 6, 6);
@@ -51,8 +52,8 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
     }
 #ifdef QT_DEBUG
     QString str = QString("(%1, %2, %3 x %4)").arg(option.rect.x()).arg(option.rect.y()).arg(option.rect.width()).arg(option.rect.height());
-    painter->drawRect(adjustRect);
-    painter->drawText(adjustRect, str);
+    painter->drawRect(option.rect);
+    painter->drawText(option.rect, str);
 #endif
 }
 
@@ -72,15 +73,4 @@ QSize WallpaperItemDelegate::sizeHint(const QStyleOptionViewItem &option, const 
 {
     Q_UNUSED(index)
     return option.rect.size();
-
-    //    int num = AppConfig::getImageNumPerRowInListView();
-    //    if (nullptr != parentWidget) {
-    //        QListView *listView = qobject_cast<QListView *>(parentWidget);
-    //        int width = (listView->viewport()->width() - (listView->spacing()) * (num + 1)) / num;
-    //        QSize size = AppConfig::screenGeometry();
-    //        int height = width * size.height() / size.width();
-    //        return QSize(width - 1, height);
-    //    } else {
-    //        return option.rect.size();
-    //    }
 }

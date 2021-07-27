@@ -12,16 +12,16 @@ public:
 public slots:
     //设置边距
     void setPadding(int padding);
-    void setFramelessWidgetMoveEnable(bool moveEnable);
-    void setFramelessWidgetResizeEnable(bool resizeEnable);
+    void setFramelessWidgetMoveEnable(bool enableMove);
+    void setFramelessWidgetResizeEnable(bool enableResize);
 
 protected:
-    bool eventFilter(QObject *watched, QEvent *event);
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private:
     void x11mouseMoveEvent(int globalX, int globalY);
 
-    void setFramelessWidget(QWidget *widget);
+    void setFramelessWidget(QWidget *framelessWidget);
 
     void updatePaddingRect();
     void setMouseCursor(QPoint point);
@@ -43,8 +43,11 @@ private:
     bool pressedLeftBottom = false;         //鼠标按下左下侧
     bool pressedRightBottom = false;        //鼠标按下右下侧
 
-    int rectX, rectY, rectW, rectH;         //窗体坐标+宽高
-    QPoint lastPos;                         //鼠标按下处坐标
+    int rectX = 0;                  //窗体坐标+宽高
+    int rectY = 0;
+    int rectW = 0;
+    int rectH = 0;
+    QPoint lastPos;                 //鼠标按下处坐标
 
     QRect rectLeft;                 //左侧区域
     QRect rectRight;                //右侧区域

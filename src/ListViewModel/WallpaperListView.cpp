@@ -66,7 +66,7 @@ void WallpaperListView::loadImages(int row)
 {
     int imageNumPerRow = AppConfig::getImageNumPerRowInListView();
     for (int i = 0; i < row * imageNumPerRow; i++) {
-        QStandardItem *item = new QStandardItem;
+        auto *item = new QStandardItem;
         item->setData(QVariant::fromValue(new WallpaperItem(earliestData)), Qt::DisplayRole);
         itemModel->appendRow(item);
         earliestData = earliestData.addDays(-1);
@@ -122,16 +122,16 @@ void WallpaperListView::showEvent(QShowEvent *event)
 void WallpaperListView::slotShowMenu(const QPoint &pos)
 {
     Q_UNUSED(pos);
-    if (true != selectionModel()->selectedIndexes().isEmpty()){
+    if (!selectionModel()->selectedIndexes().isEmpty()){
         menu->exec(QCursor::pos());
     }
 }
 
 void WallpaperListView::slotShowPreview(const QModelIndex &index)
 {
-    if (true == index.isValid()) {
+    if (index.isValid()) {
         PreviewWallpaperDialog dialog;
-        WallpaperItem *item = index.data(Qt::DisplayRole).value<WallpaperItem*>();
+        auto *item = index.data(Qt::DisplayRole).value<WallpaperItem*>();
         dialog.setWallpaper(*(item->image));
         dialog.exec();
     }

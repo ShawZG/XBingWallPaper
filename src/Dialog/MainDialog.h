@@ -14,8 +14,8 @@ class MainDialog : public QDialog
 {
     Q_OBJECT
 public:
-    MainDialog(QWidget *parent = nullptr);
-    ~MainDialog();
+    explicit MainDialog(QWidget *parent = nullptr);
+    ~MainDialog() override;
 
 protected:
     void paintEvent(QPaintEvent *event) override;

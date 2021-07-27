@@ -27,18 +27,18 @@ MainDialog::~MainDialog()
 
 void MainDialog::initUI()
 {
-    setWindowFlags(Qt::FramelessWindowHint);
+    setWindowFlags(windowFlags() | Qt::WindowTitleHint | Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
 
     initTitleWidget();
     initMainWidget();
 
-    QVBoxLayout *vLayout = new QVBoxLayout();
+    auto *vLayout = new QVBoxLayout();
     vLayout->setContentsMargins(0, 0, 0, 0);
     vLayout->setSpacing(0);
     vLayout->addWidget(titleWidget);
     /* 不遮挡MainDialog的圆角矩形 */
-    QHBoxLayout *hLayout = new QHBoxLayout();
+    auto *hLayout = new QHBoxLayout();
     hLayout->setContentsMargins(8, 0, 8, 8);
     hLayout->setSpacing(0);
     hLayout->addWidget(mainWidget);
@@ -58,8 +58,9 @@ void MainDialog::initMainWidget()
 {
     wallpaperList = new WallpaperListView();
     wallpaperList->setAttribute(Qt::WA_TranslucentBackground);
+    wallpaperList->setMouseTracking(true);
 
-    QHBoxLayout *hLayout = new QHBoxLayout();
+    auto *hLayout = new QHBoxLayout();
     hLayout->setContentsMargins(0, 0, 0, 0);
     hLayout->addWidget(wallpaperList);
 
@@ -97,7 +98,7 @@ void MainDialog::closeEvent(QCloseEvent *event)
 void MainDialog::restoreAppGeometry()
 {
     QRect rect = AppConfig::getAppGeometry();
-    if (true == rect.isValid()){
+    if (rect.isValid()){
         setGeometry(rect);
     } else {
         resize(AppConfig::screenGeometry() *= 0.6);

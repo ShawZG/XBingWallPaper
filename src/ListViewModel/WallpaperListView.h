@@ -32,7 +32,6 @@ private:
     QDate               earliestData = QDate::currentDate() ;
     QTimer              *updateTimer = nullptr;
     QMenu               *menu = nullptr;
-
 };
 
 #endif // WALLPAPERLISTVIEW_H

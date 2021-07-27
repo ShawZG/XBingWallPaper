@@ -15,8 +15,8 @@ WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent), ima
     if (true == imageData.isValid()) {
         distanceToday = imageData.daysTo(QDate::currentDate());
     }
-    getWallpaperUrlRequest();
-    //loadImageFromFile();
+//    getWallpaperUrlRequest();
+    loadImageFromFile();
 }
 
 WallpaperItem::WallpaperItem()
@@ -98,7 +98,7 @@ void WallpaperItem::saveWallpaper()
 
 void WallpaperItem::loadImageFromFile()
 {
-    image = new QImage("/home/xiaozhiguo/Colorful-Abstraction02.jpeg");
+    image = new QImage("/home/xiao/cristina-gottardi-wndpWTiDuT0-unsplash.jpg");
     imageLoadResult = true;
     imageSize = image->size();
 }
