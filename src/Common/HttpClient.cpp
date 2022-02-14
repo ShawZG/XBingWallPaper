@@ -15,9 +15,7 @@ HttpClient::HttpClient(QObject *parent) : QObject(parent)
 
 HttpClient::~HttpClient()
 {
-    if (nullptr != manager) {
-        delete manager;
-    }
+    delete manager;
 }
 
 HttpClient *HttpClient::instance()
@@ -42,7 +40,7 @@ bool HttpClient::validateReplay(QNetworkReply *reply, QJsonDocument &doc)
 #endif
     QJsonParseError jsonError;
     doc = QJsonDocument::fromJson(jsonByte, &jsonError);
-    if ( true == doc.isNull()) {
+    if (doc.isNull()) {
 #ifdef QT_DEBUG
         qDebug() << reply->request().url().url();
         qDebug() << jsonError.errorString();
@@ -53,7 +51,7 @@ bool HttpClient::validateReplay(QNetworkReply *reply, QJsonDocument &doc)
     }
 }
 
-QNetworkReply *HttpClient::getBingWallpaperUrlRequest(qint64 distanceDay, int width, int height)
+QNetworkReply *HttpClient::getImageUrlRequest(qint64 distanceDay, int width, int height)
 {
     //https://bing.ioliu.cn/v1/?type=json&d=3
     //https://bing.ioliu.cn/v1/?d=1&w=1920&h=1080
@@ -62,7 +60,7 @@ QNetworkReply *HttpClient::getBingWallpaperUrlRequest(qint64 distanceDay, int wi
     return manager->get(QNetworkRequest(url));
 }
 
-QNetworkReply *HttpClient::downloadWallpaperRequest(QString url)
+QNetworkReply *HttpClient::downloadImageRequest(QString url)
 {
     return manager->get(QNetworkRequest(url));
 }

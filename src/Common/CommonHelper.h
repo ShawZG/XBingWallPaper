@@ -14,9 +14,6 @@ public:
     static bool     getJsonValue(QJsonObject obj, QString key, QVariant &value);
     static QSize    parseUrlImageSize(const QString& url);
     static QString  parseUrlImageFormat(const QString& url);
-
-    static QDir     createWallpaperDir(const QDate &imageDate);
-    static QString  translateImageDateToDir(const QDate &imageDate);
 };
 
 #endif // COMMONHELPER_H

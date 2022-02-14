@@ -12,7 +12,6 @@
 
 CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
 {
-
 }
 
 void CommonHelper::setStyle(const QString &stylePath)
@@ -54,17 +53,4 @@ QString CommonHelper::parseUrlImageFormat(const QString& url)
     int dot = url.lastIndexOf(QChar('.'));
     QString format = url.mid(dot + 1).toUpper();
     return format;
-}
-
-QString CommonHelper::translateImageDateToDir(const QDate &imageDate){
-    auto imageDir = QString("%1/%2/%3").arg(AppConfig::getImageStorageDir()).arg(imageDate.toString("MM")).arg(imageDate.toString("dd"));
-}
-
-QDir CommonHelper::createWallpaperDir(const QDate &imageDate){
-    if (not imageDate.isValid()) {
-        return {};
-    }
-
-    auto imageFileName = imageDate.toString("yyyy_MM_dd") + ".jpg";
-    auto imageDir = QString("%1/%2/%3").arg(AppConfig::getImageStorageDir()).arg(imageDate.toString("MM")).arg(imageDate.toString("dd"));
 }

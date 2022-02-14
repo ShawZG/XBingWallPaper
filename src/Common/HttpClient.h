@@ -19,8 +19,8 @@ public:
     static HttpClient *instance();
     static bool validateReplay(QNetworkReply *reply, QJsonDocument &doc);
 
-    QNetworkReply *getBingWallpaperUrlRequest(qint64 distanceDay, int width, int height);
-    QNetworkReply *downloadWallpaperRequest(QString url);
+    QNetworkReply *getImageUrlRequest(qint64 distanceDay, int width, int height);
+    QNetworkReply *downloadImageRequest(QString url);
 
 private:
     Q_DISABLE_COPY(HttpClient)

@@ -36,7 +36,7 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
 {
     auto *item = index.data(Qt::DisplayRole).value<WallpaperItem *>();
     QRect adjustRect;
-    if (item->imageLoadResult) {
+    if (item->loadingImageResult) {
         if ( /*option.state.testFlag(QStyle::State_Selected)
              || */option.state.testFlag(QStyle::State_MouseOver)) {
             adjustRect = adjustSelectedImageRect(option.rect);
@@ -47,7 +47,7 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
         clipPath.addRoundedRect(adjustRect, 6, 6);
         painter->setPen(Qt::transparent);
         painter->setClipPath(clipPath);
-        painter->drawImage(clipPath.boundingRect().toRect(), *(item->image));
+        painter->drawImage(clipPath.boundingRect().toRect(), item->image);
         painter->drawPath(clipPath);
     }
 #ifdef QT_DEBUG

@@ -132,7 +132,7 @@ void WallpaperListView::slotShowPreview(const QModelIndex &index)
     if (index.isValid()) {
         PreviewWallpaperDialog dialog;
         auto *item = index.data(Qt::DisplayRole).value<WallpaperItem*>();
-        dialog.setWallpaper(*(item->image));
+        dialog.setWallpaper(item->image);
         dialog.exec();
     }
 }
