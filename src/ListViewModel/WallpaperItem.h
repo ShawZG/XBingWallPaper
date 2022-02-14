@@ -10,9 +10,8 @@ class WallpaperItem : public QObject
     Q_OBJECT
 public:
     explicit WallpaperItem(QDate date, QObject *parent = nullptr);
-    WallpaperItem();
     WallpaperItem(const WallpaperItem &item);
-    ~WallpaperItem();
+    ~WallpaperItem() override;
 
     qint64  distanceToday = -1;
     QDate   imageData = QDate();
@@ -27,7 +26,8 @@ private slots:
 
 private:
     void getWallpaperUrlRequest();
-    void downloadWallpaperRequest();
+    void loadImageFromLocalOrNetwork();
+
     void loadImageFromFile();
 };
 

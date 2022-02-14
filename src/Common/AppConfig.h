@@ -21,10 +21,12 @@ public:
     static QRect    getAppGeometry();
     static void     setAppGeometry(QRect rect);
 
+    static QString  getImageStorageDir();
+
 private:
     static void        loadConfig();
-    static QVariant    getConfig(QString key, QVariant defaultValue);
-    static void        setConfig(QString key, QVariant value);
+    static QVariant    getConfig(const QString& key, const QVariant& defaultValue);
+    static void        setConfig(const QString& key, const QVariant& value);
 
     static QSettings    *setting;
     static QString      appVer;

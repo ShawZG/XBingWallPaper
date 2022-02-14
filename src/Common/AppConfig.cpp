@@ -1,19 +1,19 @@
 #include <QApplication>
 #include <QScreen>
 #include <QSettings>
-
+#include <QDir>
 #include "Version.h"
 
 #include "AppConfig.h"
 
-QString     AppConfig::appVer = QString("%1.%2.%3").arg(PROJECT_VERSION_MAJOR)
-                                                   .arg(PROJECT_VERSION_MINOR)
-                                                   .arg(PROJECT_VERSION_PATCH);
+QString     AppConfig::appVer = QString("%1.%2.%3").arg(PROJECT_VERSION_MAJOR).arg(PROJECT_VERSION_MINOR).arg(PROJECT_VERSION_PATCH);
 QSettings  *AppConfig::setting = nullptr;
 QSize       AppConfig::screenSize = QSize(1920, 1080);
 
 int         AppConfig::defaultImageNumPerRow = 4;
-int         AppConfig::initShowImageRowNum = 8;
+int         AppConfig::initShowImageRowNum = 6;
+
+QString getWallpaperLocalStorageDir();
 
 AppConfig::AppConfig(QObject *parent) : QObject(parent)
 {
@@ -21,7 +21,7 @@ AppConfig::AppConfig(QObject *parent) : QObject(parent)
 
 QSize AppConfig::screenGeometry()
 {
-    if (false == AppConfig::screenSize.isValid()) {
+    if (!AppConfig::screenSize.isValid()) {
         QRect rect = QApplication::primaryScreen()->geometry();
         AppConfig::screenSize.setWidth(rect.width());
         AppConfig::screenSize.setHeight(rect.height());
@@ -70,7 +70,12 @@ void AppConfig::loadConfig()
     AppConfig::setting = new QSettings();
 }
 
-QVariant AppConfig::getConfig(QString key, QVariant defaultValue)
+QString AppConfig::getImageStorageDir()
+{
+    return AppConfig::getConfig("ImageDir", QDir::homePath() + "/xBingWallpaper").toString();
+}
+
+QVariant AppConfig::getConfig(const QString& key, const QVariant& defaultValue)
 {
     if (nullptr == AppConfig::setting) {
         AppConfig::loadConfig();
@@ -78,7 +83,7 @@ QVariant AppConfig::getConfig(QString key, QVariant defaultValue)
     return AppConfig::setting->value(key, defaultValue);
 }
 
-void AppConfig::setConfig(QString key, QVariant value)
+void AppConfig::setConfig(const QString& key, const QVariant& value)
 {
     if (nullptr == AppConfig::setting) {
         AppConfig::loadConfig();
@@ -86,6 +91,3 @@ void AppConfig::setConfig(QString key, QVariant value)
     AppConfig::setting->setValue(key, value);
     AppConfig::setting->sync();
 }
-
-
-

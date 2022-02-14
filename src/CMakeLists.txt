@@ -9,9 +9,9 @@ SET(CMAKE_AUTORCC ON)
 #SET(Qt5Widgets_DIR "${CMAKE_PREFIX_PATH}/cmake/Qt5Widgets")
 #SET(Qt5WebEngineWidgets_DIR "${CMAKE_PREFIX_PATH}/cmake/Qt5WebEngineWidgets")
 #FIND_PACKAGE失败则需要设置CMAKE_PREFIX_PATH，或者设置上述路径
-IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
-#    SET(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu/cmake")
-ENDIF()
+#IF(CMAKE_SYSTEM_NAME MATCHES "Linux")
+##    SET(CMAKE_PREFIX_PATH "/usr/lib/x86_64-linux-gnu/cmake")
+#ENDIF()
 
 FIND_PACKAGE(Qt5 COMPONENTS Core REQUIRED)
 FIND_PACKAGE(Qt5 COMPONENTS Gui REQUIRED)
@@ -56,10 +56,8 @@ ENDIF ()
 SET(CMAKE_INSTALL_PREFIX /usr)
 
 INSTALL(TARGETS ${APP_NAME} RUNTIME DESTINATION /opt/apps/xzg/)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/xweather.desktop
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/org.xzg.xweather.svg
-    DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/xweather.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/org.xzg.xweather.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps)
 
 #构建DEB包
 SET(CPACK_GENERATOR "DEB")
