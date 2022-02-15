@@ -5,6 +5,7 @@
 
 class QPushButton;
 class QLabel;
+class FramelessWidget;
 
 class PreviewWallpaperDialog : public QDialog
 {
@@ -16,6 +17,7 @@ public:
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;
+    void paintEvent(QPaintEvent *event) override;
 
 private:
     void initUI();
@@ -23,6 +25,7 @@ private:
 
     QPushButton *closeButton = nullptr;
     QLabel *wallpaperQLabel = nullptr;
+    FramelessWidget *framelessWidget = nullptr;
 };
 
 #endif // PREVIEWWALLPAPERWIDGET_H

@@ -12,6 +12,7 @@ public:
     WallpaperItem(const WallpaperItem& item);
 
     QImage  image;
+    QString imageFilePath;
     bool    loadingImageResult = false;
 
 private slots:

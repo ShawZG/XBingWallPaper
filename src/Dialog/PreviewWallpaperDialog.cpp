@@ -6,29 +6,35 @@
 #include <QPainter>
 #include <QLabel>
 #include <QDesktopWidget>
+#include <QBitmap>
 
+#include "FramelessWidget.h"
 #include "PreviewWallpaperDialog.h"
 
 PreviewWallpaperDialog::PreviewWallpaperDialog(QWidget *parent) : QDialog(parent)
 {
+    framelessWidget = new FramelessWidget(this);
     initUI();
     initConnect();
 }
 
 void PreviewWallpaperDialog::initUI()
 {
+    setAttribute(Qt::WA_TranslucentBackground, true);
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint);
 
-    closeButton = new QPushButton(QIcon(":/images/close_preview.svg"), QString());
+    closeButton = new QPushButton(QIcon(":/app_images/app_images/close_preview.svg"), QString());
+    closeButton->setFixedSize(32, 32);
     closeButton->setFlat(true);
-    closeButton->setFixedSize(64, 64);
-    /* todo 设置closebutton背景透明 */
+    closeButton->setIconSize(QSize(32, 32));
+    closeButton->setAttribute(Qt::WA_TranslucentBackground, true);
+    closeButton->setFocusPolicy(Qt::NoFocus);
 
     wallpaperQLabel = new QLabel();
     wallpaperQLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto *gLayout = new QGridLayout();
-    gLayout->setContentsMargins(2, 2, 2, 2);
+    gLayout->setContentsMargins(0, 0, 0, 0);
     gLayout->addWidget(wallpaperQLabel, 0, 0, Qt::AlignCenter);
     gLayout->addWidget(closeButton, 0, 0, Qt::AlignTop | Qt::AlignRight);
 
@@ -36,7 +42,9 @@ void PreviewWallpaperDialog::initUI()
 
     setFocusPolicy(Qt::StrongFocus);
 
-    setFixedSize(800, 600);
+    QDesktopWidget desktopWidget;
+    auto rect = desktopWidget.screenGeometry(this);
+    setFixedSize(static_cast<int>(rect.width() * 0.75), static_cast<int>(rect.height() * 0.75));
 }
 
 void PreviewWallpaperDialog::initConnect()
@@ -58,3 +66,14 @@ void PreviewWallpaperDialog::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void PreviewWallpaperDialog::paintEvent(QPaintEvent *event)
+{
+    QBitmap bmp(size());
+    bmp.fill();
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.drawRoundedRect(bmp.rect(),8,8);
+    setMask(bmp);
+    QDialog::paintEvent(event);
+}

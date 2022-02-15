@@ -1,14 +1,12 @@
 #include <QObject>
 #include <QTextCodec>
-#include <QApplication>
+#include <QStandardPaths>
 
 #include "singleapplication.h"
 #include "CommonHelper.h"
 #include "DarkStyle.h"
 #include "MainDialog.h"
 #include "AppConfig.h"
-#include "CommonHelper.h"
-#include "Dialog/MainDialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -18,24 +16,17 @@ int main(int argc, char *argv[])
     SingleApplication app(argc, argv,  true, SingleApplication::User, 100 );
     app.setAttribute(Qt::AA_UseHighDpiPixmaps);
     app.setStyle(new DarkStyle);
-    app.setApplicationName("xbingwallpaper");
-    app.setApplicationVersion(AppConfig::getAppVersion());
     app.setOrganizationName("xzg");
+    app.setApplicationName("xBingWallpaper");
+    app.setApplicationVersion(AppConfig::getAppVersion());
 
-
-#if defined(Q_OS_WIN)
-#elif defined(Q_OS_LINUX)
-#elif defined(Q_OS_MACOS)
-#endif
-
-//    CommonHelper::setApplicationFont(":/font/font/yaheisongti.ttf");
     CommonHelper::setStyle(QString(":/dark_style/dark_style/darkstyle.qss"));
 
     MainDialog w;
 
     QObject::connect(&app, &SingleApplication::instanceStarted, &w, &MainDialog::raise);
 
-    if (true == app.isPrimary()) {
+    if (app.isPrimary()) {
         w.show();
     } else {
         emit app.instanceStarted();

@@ -54,3 +54,9 @@ QString CommonHelper::parseUrlImageFormat(const QString& url)
     QString format = url.mid(dot + 1).toUpper();
     return format;
 }
+
+bool CommonHelper::copyFileToDir(const QString &filePath, const QString &dirPath)
+{
+    QFileInfo fileInfo(filePath);
+    return QFile::copy(filePath, dirPath + "/" + fileInfo.fileName());
+}

@@ -14,6 +14,7 @@ public:
     static bool     getJsonValue(QJsonObject obj, QString key, QVariant &value);
     static QSize    parseUrlImageSize(const QString& url);
     static QString  parseUrlImageFormat(const QString& url);
+    static bool     copyFileToDir(const QString &filePath, const QString &dirPath);
 };
 
 #endif // COMMONHELPER_H

@@ -2,8 +2,9 @@
 #include <QScreen>
 #include <QSettings>
 #include <QDir>
-#include "Version.h"
+#include <QStandardPaths>
 
+#include "Version.h"
 #include "AppConfig.h"
 
 QString     AppConfig::appVer = QString("%1.%2.%3").arg(PROJECT_VERSION_MAJOR).arg(PROJECT_VERSION_MINOR).arg(PROJECT_VERSION_PATCH);
@@ -72,7 +73,7 @@ void AppConfig::loadConfig()
 
 QString AppConfig::getImageStorageDir()
 {
-    return AppConfig::getConfig("ImageDir", QDir::homePath() + "/xBingWallpaper").toString();
+    return AppConfig::getConfig("ImageDir", QStandardPaths::standardLocations(QStandardPaths::PicturesLocation).at(0) + "/xBingWallpaper").toString();
 }
 
 QVariant AppConfig::getConfig(const QString& key, const QVariant& defaultValue)

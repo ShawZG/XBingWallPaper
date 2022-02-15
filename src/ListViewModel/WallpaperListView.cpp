@@ -8,13 +8,14 @@
 #include <QDebug>
 #include <QAbstractScrollArea>
 #include <QStandardItemModel>
+#include <QStandardPaths>
 
 #include "AppConfig.h"
 #include "Global.h"
 #include "PreviewWallpaperDialog.h"
 #include "WallpaperItemDelegate.h"
 #include "WallpaperItem.h"
-
+#include "CommonHelper.h"
 #include "WallpaperListView.h"
 
 WallpaperListView::WallpaperListView(QWidget *parent) : QListView(parent)
@@ -95,14 +96,15 @@ void WallpaperListView::updateGridSize()
 void WallpaperListView::initMenu()
 {
     menu = new QMenu(this);
-    QAction *setAction = menu->addAction(QIcon(":/images/set_wallpaper.svg"), tr("set to wallpaper"));
-    connect(setAction, &QAction::toggle, this, [](){});
+    QAction *setAction = menu->addAction(QIcon(":/app_images/app_images/set_wallpaper.svg"), tr("设置为壁纸"));
+    connect(setAction, &QAction::triggered, this, &WallpaperListView::slotSettingWallpaper);
 
-    QAction *downloadAction = menu->addAction(QIcon(":/images/download_wallpaper.svg"), tr("download wallpaper"));
-    connect(downloadAction, &QAction::toggle, this, [](){});
+    QAction *downloadAction = menu->addAction(QIcon(":/app_images/app_images/download_wallpaper.svg"), tr("保存到桌面"));
+    connect(downloadAction, &QAction::triggered, this, &WallpaperListView::slotSaveImageToDesktop);
 
-    QAction *previewAction = menu->addAction(QIcon(":/images/preivew_wallpaper.svg"), tr("preview wallpaper"));
-    //connect(previewAction, &QAction::toggle, this, [this](){this->slotShowPreview();});
+    QAction *previewAction = menu->addAction(QIcon(":/app_images/app_images/preview_wallpaper.svg"), tr("预览此壁纸"));
+//    connect(previewAction, &QAction::toggle, this, [this](){ this->slotShowPreview();});
+    connect(previewAction, &QAction::triggered, this, &WallpaperListView::slotShowPreview);
 }
 
 void WallpaperListView::resizeEvent(QResizeEvent *event)
@@ -127,12 +129,29 @@ void WallpaperListView::slotShowMenu(const QPoint &pos)
     }
 }
 
-void WallpaperListView::slotShowPreview(const QModelIndex &index)
+void WallpaperListView::slotShowPreview()
 {
-    if (index.isValid()) {
-        PreviewWallpaperDialog dialog;
-        auto *item = index.data(Qt::DisplayRole).value<WallpaperItem*>();
-        dialog.setWallpaper(item->image);
-        dialog.exec();
+    if( currentIndex().isValid()) {
+        auto *item = currentIndex().data(Qt::DisplayRole).value<WallpaperItem*>();
+        if (item->loadingImageResult) {
+            PreviewWallpaperDialog dialog;
+            dialog.setWallpaper(item->image);
+            dialog.exec();
+        }
     }
+}
+
+void WallpaperListView::slotSaveImageToDesktop()
+{
+    if( currentIndex().isValid()) {
+        auto *item = currentIndex().data(Qt::DisplayRole).value<WallpaperItem*>();
+        if (item->loadingImageResult) {
+            CommonHelper::copyFileToDir(item->imageFilePath, QStandardPaths::standardLocations(QStandardPaths::DesktopLocation).at(0));
+        }
+    }
+}
+
+void WallpaperListView::slotSettingWallpaper()
+{
+
 }

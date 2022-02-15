@@ -9,6 +9,7 @@
         <file>app_images/logo.svg</file>
         <file>app_images/preview_wallpaper.svg</file>
         <file>app_images/set_wallpaper.svg</file>
+        <file>app_images/close_preview.svg</file>
     </qresource>
     <qresource prefix="/dark_style">
         <file>dark_style/darkstyle.qss</file>

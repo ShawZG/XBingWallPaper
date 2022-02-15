@@ -18,7 +18,9 @@ protected:
 
 private slots:
     void slotShowMenu(const QPoint &pos);
-    void slotShowPreview(const QModelIndex &index);
+    void slotShowPreview();
+    void slotSaveImageToDesktop();
+    void slotSettingWallpaper();
 
 private:
     void initListView();

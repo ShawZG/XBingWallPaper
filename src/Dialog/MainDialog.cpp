@@ -1,16 +1,13 @@
 #include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QPalette>
 #include <QPainter>
 #include <QGuiApplication>
+#include <QBitmap>
 
 #include "TitleWidget.h"
 #include "FramelessWidget.h"
 #include "AppConfig.h"
 #include "Global.h"
-#include "WallpaperItem.h"
 #include "WallpaperListView.h"
-#include "WallpaperItemDelegate.h"
 
 #include "MainDialog.h"
 
@@ -28,7 +25,7 @@ MainDialog::~MainDialog()
 void MainDialog::initUI()
 {
     setWindowFlags(windowFlags() | Qt::WindowTitleHint | Qt::FramelessWindowHint);
-    setAttribute(Qt::WA_TranslucentBackground);
+//    setAttribute(Qt::WA_TranslucentBackground);
 
     initTitleWidget();
     initMainWidget();
@@ -76,15 +73,13 @@ void MainDialog::adjustDialogSize()
 
 void MainDialog::paintEvent(QPaintEvent *event)
 {
-    QPainter painter(this);
-    painter.setRenderHint(QPainter::Antialiasing);
-    QPalette pa = QGuiApplication::palette();
-    painter.setBrush(pa.window());
-    painter.setPen(Qt::transparent);
-    QRect dialogRect;
-    dialogRect.setWidth(rect().width() - 1);
-    dialogRect.setHeight(rect().height() - 1);
-    painter.drawRoundedRect(dialogRect, 10, 10);
+    QBitmap bmp(size());
+    bmp.fill();
+    QPainter p(&bmp);
+    p.setPen(Qt::NoPen);
+    p.setBrush(Qt::black);
+    p.drawRoundedRect(bmp.rect(),8,8);
+    setMask(bmp);
     QDialog::paintEvent(event);
 }
 
