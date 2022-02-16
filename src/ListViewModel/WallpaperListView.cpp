@@ -44,7 +44,7 @@ void WallpaperListView::initListView()
     setItemDelegate(new WallpaperItemDelegate(this));
 
     QScrollBar *vScrollBar = verticalScrollBar();
-    vScrollBar->setFixedWidth(16);
+    vScrollBar->setFixedWidth(20);
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     initMenu();
@@ -153,5 +153,10 @@ void WallpaperListView::slotSaveImageToDesktop()
 
 void WallpaperListView::slotSettingWallpaper()
 {
-
+    if( currentIndex().isValid()) {
+        auto *item = currentIndex().data(Qt::DisplayRole).value<WallpaperItem*>();
+        if (item->loadingImageResult) {
+            CommonHelper::setDesktopWallpaper(item->imageFilePath);
+        }
+    }
 }

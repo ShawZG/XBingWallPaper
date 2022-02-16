@@ -16,19 +16,19 @@ WallpaperItemDelegate::WallpaperItemDelegate(QWidget *parent) : parentWidget(par
 
 QRect WallpaperItemDelegate::adjustNormalImageRect(const QRect &rect) const
 {
-    int x = rect.x() + static_cast<int>(rect.width() * 0.05);
-    int y = rect.y() + static_cast<int>(rect.height() * 0.05);
-    int width = static_cast<int>(rect.width() * 0.9);
-    int height = static_cast<int>(rect.height() * 0.9);
+    int x = rect.x() + static_cast<int>(rect.width() * 0.02);
+    int y = rect.y() + static_cast<int>(rect.height() * 0.02);
+    int width = static_cast<int>(rect.width() * 0.96);
+    int height = static_cast<int>(rect.height() * 0.96);
     return {QPoint(x, y), QSize(width, height)};
 }
 
 QRect WallpaperItemDelegate::adjustSelectedImageRect(const QRect &rect) const
 {
-    int x = rect.x() + static_cast<int>(rect.width() * 0.03);
-    int y = rect.y() + static_cast<int>(rect.height() * 0.03);
-    int width = static_cast<int>(rect.width() * 0.94);
-    int height = static_cast<int>(rect.height() * 0.94);
+    int x = rect.x() + static_cast<int>(rect.width() * 0.01);
+    int y = rect.y() + static_cast<int>(rect.height() * 0.01);
+    int width = static_cast<int>(rect.width() * 0.98);
+    int height = static_cast<int>(rect.height() * 0.98);
     return {QPoint(x, y), QSize(width, height)};
 }
 

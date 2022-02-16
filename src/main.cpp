@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     app.setOrganizationName("xzg");
     app.setApplicationName("xBingWallpaper");
     app.setApplicationVersion(AppConfig::getAppVersion());
+    app.setWindowIcon(QIcon(":/app_images/app_images/logo.svg"));
 
     CommonHelper::setStyle(QString(":/dark_style/dark_style/darkstyle.qss"));
 

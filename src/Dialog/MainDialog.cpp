@@ -48,7 +48,7 @@ void MainDialog::initUI()
 
 void MainDialog::initTitleWidget()
 {
-    titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), "XBingWallPaper", true, true, true, this);
+    titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), "xBingWallpaper", true, true, true, this);
 }
 
 void MainDialog::initMainWidget()

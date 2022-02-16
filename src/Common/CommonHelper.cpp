@@ -5,10 +5,14 @@
 #include <QDate>
 #include <QDir>
 #include <QApplication>
-
-#include "CommonHelper.h"
+#include <QGuiApplication>
+#include <QScreen>
+#include <QDBusInterface>
+#include <QUrl>
 
 #include "AppConfig.h"
+
+#include "CommonHelper.h"
 
 CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
 {
@@ -59,4 +63,16 @@ bool CommonHelper::copyFileToDir(const QString &filePath, const QString &dirPath
 {
     QFileInfo fileInfo(filePath);
     return QFile::copy(filePath, dirPath + "/" + fileInfo.fileName());
+}
+
+void CommonHelper::setDesktopWallpaper(const QString &wallpaperPath)
+{
+    auto screen = QGuiApplication::screenAt( QCursor::pos());
+
+    QString service = "com.deepin.daemon.Appearance";
+    QString path = "/com/deepin/daemon/Appearance";
+    QString interfaceName = "com.deepin.daemon.Appearance";
+    QDBusInterface interface(service, path,interfaceName);
+    //NOTE 文件的路径格式形如file:///home/user/file.txt，故用QUrl转换
+    interface.call("SetMonitorBackground",screen->name(),QUrl::fromLocalFile(wallpaperPath).toLocalFile());
 }

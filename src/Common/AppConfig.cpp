@@ -68,7 +68,7 @@ void AppConfig::loadConfig()
     QSettings::sync() Writes any unsaved changes to permanent storage, and reloads any settings
     that have been changed in the meantime by another application.
     */
-    AppConfig::setting = new QSettings();
+    AppConfig::setting = new QSettings(QSettings::UserScope,qApp->organizationName(),qApp->applicationName());
 }
 
 QString AppConfig::getImageStorageDir()
