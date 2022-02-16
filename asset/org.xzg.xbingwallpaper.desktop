@@ -1,0 +1,13 @@
+[Desktop Entry]
+Categories=Graphics
+Comment=Preview and set wallpaper from Mircosoft Bing Wallpaper.
+Comment[zh_CN]=预览、设置来自于微软的Bing壁纸。
+Exec=/opt/apps/org.xzg.xbingwallpaper/files/xbingwallpaper
+GenericName=xBingWallpaper
+GenericName[zh_CN]=简单壁纸
+Icon=/opt/apps/org.xzg.xbingwallpaper/entries/icons/hicolor/scalable/apps/org.xzg.xbingwallpaper.svg
+Keywords=wallpaper
+Keywords[zh_CN]=壁纸
+Name=xBingWallpaper
+Name[zh_CN]=简单壁纸
+Type=Application

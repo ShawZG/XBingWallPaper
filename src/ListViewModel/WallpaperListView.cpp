@@ -43,8 +43,7 @@ void WallpaperListView::initListView()
     setModel(itemModel);
     setItemDelegate(new WallpaperItemDelegate(this));
 
-    QScrollBar *vScrollBar = verticalScrollBar();
-    vScrollBar->setFixedWidth(20);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAsNeeded);
 
     setContextMenuPolicy(Qt::CustomContextMenu);
     initMenu();

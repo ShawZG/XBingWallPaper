@@ -15,8 +15,7 @@ public:
     static QSize    parseUrlImageSize(const QString& url);
     static QString  parseUrlImageFormat(const QString& url);
     static bool     copyFileToDir(const QString &filePath, const QString &dirPath);
-
-    static void setDesktopWallpaper(const QString &wallpaperPath);
+    static void     setDesktopWallpaper(const QString &wallpaperPath);
 };
 
 #endif // COMMONHELPER_H

@@ -21,6 +21,9 @@ protected:
     void paintEvent(QPaintEvent *event) override;
     void closeEvent(QCloseEvent *event) override;
 
+private slots:
+    void slotShowAboutDialog();
+
 private:
     void initUI();
     void initTitleWidget();

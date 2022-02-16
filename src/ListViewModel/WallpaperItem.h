@@ -3,13 +3,13 @@
 
 #include <QDate>
 #include <QObject>
+#include <QImage>
 
 class WallpaperItem : public QObject
 {
     Q_OBJECT
 public:
     explicit WallpaperItem(QDate date, QObject *parent = nullptr);
-    WallpaperItem(const WallpaperItem& item);
 
     QImage  image;
     QString imageFilePath;

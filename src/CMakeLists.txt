@@ -40,7 +40,7 @@ IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
     SET(WINDOWS_RC_FILE ${PROJECT_SOURCE_DIR}/data/app.rc)
 ENDIF ()
 
-SET(APP_NAME ${PROJECT_NAME})
+SET(APP_NAME xbingwallpaper)
 #将编译产生的可执行文件或库文件存放到指定目录下，不包含编译生成的中间文件
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
@@ -55,11 +55,11 @@ ELSE()
     TARGET_LINK_LIBRARIES(${APP_NAME} Qt5::Core Qt5::Widgets Qt5::Network ${3RD_LIBS})
 ENDIF ()
 
-SET(CMAKE_INSTALL_PREFIX /usr)
-
-INSTALL(TARGETS ${APP_NAME} RUNTIME DESTINATION /opt/apps/xzg/)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/xweather.desktop DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
-INSTALL(FILES ${PROJECT_SOURCE_DIR}/data/org.xzg.xweather.svg DESTINATION ${CMAKE_INSTALL_PREFIX}/share/icons/hicolor/scalable/apps)
+INSTALL(TARGETS ${APP_NAME} RUNTIME                                      DESTINATION /opt/apps/org.xzg.xbingwallpaper/files/)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.desktop DESTINATION /opt/apps/org.xzg.xbingwallpaper/entries/applications/)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.desktop DESTINATION /usr/share/applications)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.svg     DESTINATION /opt/apps/org.xzg.xbingwallpaper/entries/icons/hicolor/scalable/apps/)
+INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/info                           DESTINATION /opt/apps/org.xzg.xbingwallpaper/)
 
 #构建DEB包
 SET(CPACK_GENERATOR "DEB")

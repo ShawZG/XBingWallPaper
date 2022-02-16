@@ -2,12 +2,14 @@
 #include <QPainter>
 #include <QGuiApplication>
 #include <QBitmap>
+#include <QMenu>
 
 #include "TitleWidget.h"
 #include "FramelessWidget.h"
 #include "AppConfig.h"
 #include "Global.h"
 #include "WallpaperListView.h"
+#include "AboutDialog.h"
 
 #include "MainDialog.h"
 
@@ -18,9 +20,7 @@ MainDialog::MainDialog(QWidget *parent)
     initUI();
 }
 
-MainDialog::~MainDialog()
-{
-}
+MainDialog::~MainDialog() = default;
 
 void MainDialog::initUI()
 {
@@ -49,6 +49,9 @@ void MainDialog::initUI()
 void MainDialog::initTitleWidget()
 {
     titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), "xBingWallpaper", true, true, true, this);
+    auto titleMenu = new QMenu();
+    titleMenu->addAction(QString::fromLocal8Bit("关于"), this, &MainDialog::slotShowAboutDialog);
+    titleWidget->setTitleMenu(titleMenu);
 }
 
 void MainDialog::initMainWidget()
@@ -98,4 +101,10 @@ void MainDialog::restoreAppGeometry()
     } else {
         resize(AppConfig::screenGeometry() *= 0.6);
     }
+}
+
+void MainDialog::slotShowAboutDialog()
+{
+    AboutDialog dialog;
+    dialog.exec();
 }
