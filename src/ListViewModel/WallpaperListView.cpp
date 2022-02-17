@@ -95,13 +95,13 @@ void WallpaperListView::updateGridSize()
 void WallpaperListView::initMenu()
 {
     menu = new QMenu(this);
-    QAction *setAction = menu->addAction(QIcon(":/app_images/app_images/set_wallpaper.svg"), tr("设置为壁纸"));
+    QAction *setAction = menu->addAction(QIcon(":/app_images/app_images/set_wallpaper.svg"), tr("Set wallpaper"));
     connect(setAction, &QAction::triggered, this, &WallpaperListView::slotSettingWallpaper);
 
-    QAction *downloadAction = menu->addAction(QIcon(":/app_images/app_images/download_wallpaper.svg"), tr("保存到桌面"));
+    QAction *downloadAction = menu->addAction(QIcon(":/app_images/app_images/download_wallpaper.svg"), tr("Save to desktop"));
     connect(downloadAction, &QAction::triggered, this, &WallpaperListView::slotSaveImageToDesktop);
 
-    QAction *previewAction = menu->addAction(QIcon(":/app_images/app_images/preview_wallpaper.svg"), tr("预览此壁纸"));
+    QAction *previewAction = menu->addAction(QIcon(":/app_images/app_images/preview_wallpaper.svg"), tr("Preview wallpaper"));
 //    connect(previewAction, &QAction::toggle, this, [this](){ this->slotShowPreview();});
     connect(previewAction, &QAction::triggered, this, &WallpaperListView::slotShowPreview);
 }

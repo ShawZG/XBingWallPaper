@@ -18,6 +18,7 @@ FIND_PACKAGE(Qt5 COMPONENTS Gui REQUIRED)
 FIND_PACKAGE(Qt5 COMPONENTS Widgets REQUIRED)
 FIND_PACKAGE(Qt5 COMPONENTS Network REQUIRED)
 FIND_PACKAGE(Qt5 COMPONENTS DBus REQUIRED)
+FIND_PACKAGE(Qt5 COMPONENTS LinguistTools REQUIRED)
 
 IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Linux")
     FIND_PACKAGE(Qt5 COMPONENTS X11Extras REQUIRED)
@@ -35,17 +36,23 @@ FILE(GLOB_RECURSE SRC_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} *.cpp *.h)
 #QT5_ADD_RESOURCES(QRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/resource/res.qrc)
 SET(QRC_FILES ${CMAKE_CURRENT_SOURCE_DIR}/Resources/res.qrc)
 
-#Windows平台图标
-IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
-    SET(WINDOWS_RC_FILE ${PROJECT_SOURCE_DIR}/data/app.rc)
-ENDIF ()
+# 需要先生成ts文件，然后根据ts文件生成对应的qm文件
+# lupdate -source-language en -target-language zh_CN -no-obsolete  . -ts xbingwallpaper_zh_CN.ts
+FILE(GLOB TS_FILES "${CMAKE_CURRENT_SOURCE_DIR}/Resources/translations/*.ts")
+# 设置qm文件的保存路径
+SET_SOURCE_FILES_PROPERTIES(${TS_FILES} PROPERTIES OUTPUT_LOCATION ${PROJECT_SOURCE_DIR}/asset/translations)
+QT5_CREATE_TRANSLATION(QM_FILES ${CMAKE_CURRENT_SOURCE_DIR} ${TS_FILES} OPTIONS -source-language en -no-obsolete)
 
-SET(APP_NAME xbingwallpaper)
+#Windows平台图标
+#IF (CMAKE_HOST_SYSTEM_NAME MATCHES "Windows")
+#    SET(WINDOWS_RC_FILE ${PROJECT_SOURCE_DIR}/data/app.rc)
+#ENDIF ()
+
 #将编译产生的可执行文件或库文件存放到指定目录下，不包含编译生成的中间文件
 SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_BINARY_DIR}/bin)
 
-#ADD_EXECUTABLE(${APP_NAME} ${SRC_FILES} ${QRC_FILES} #[[${WINDOWS_RC_FILE}]])
-ADD_EXECUTABLE(${APP_NAME} ${SRC_FILES} ${QRC_FILES})
+SET(APP_NAME xbingwallpaper)
+ADD_EXECUTABLE(${APP_NAME} ${SRC_FILES} ${QRC_FILES} ${QM_FILES})
 TARGET_INCLUDE_DIRECTORIES(${APP_NAME} PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Common
                                        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/Dialog
                                        PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/ListViewModel)
@@ -60,6 +67,7 @@ INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.desktop DESTINA
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.desktop DESTINATION /usr/share/applications)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/org.xzg.xbingwallpaper.svg     DESTINATION /opt/apps/org.xzg.xbingwallpaper/entries/icons/hicolor/scalable/apps/)
 INSTALL(FILES ${PROJECT_SOURCE_DIR}/asset/info                           DESTINATION /opt/apps/org.xzg.xbingwallpaper/)
+INSTALL(DIRECTORY ${PROJECT_SOURCE_DIR}/asset/translations               DESTINATION /opt/apps/org.xzg.xbingwallpaper/files/)
 
 #构建DEB包
 SET(CPACK_GENERATOR "DEB")

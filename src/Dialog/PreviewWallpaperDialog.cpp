@@ -71,6 +71,7 @@ void PreviewWallpaperDialog::paintEvent(QPaintEvent *event)
     QBitmap bmp(size());
     bmp.fill();
     QPainter p(&bmp);
+    p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
     p.drawRoundedRect(bmp.rect(),8,8);

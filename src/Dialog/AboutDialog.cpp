@@ -39,7 +39,7 @@ void AboutDialog::initUI()
 
 void AboutDialog::initTitleWidget()
 {
-    titleWidget = new TitleWidget(QString(), QString::fromLocal8Bit("关于"), false, false, false, this);
+    titleWidget = new TitleWidget(QString(), tr("About"), false, false, false, this);
 }
 
 void AboutDialog::initCenterWidget()
@@ -56,15 +56,15 @@ void AboutDialog::initCenterWidget()
 
     auto *verLabel = new QLabel();
     verLabel->setFont(font);
-    verLabel->setText("版    本: " + AppConfig::getAppVersion());
+    verLabel->setText(tr("Version: ") + AppConfig::getAppVersion());
 
     auto *fallbackLabel = new QLabel();
     fallbackLabel->setFont(font);
-    fallbackLabel->setText("作    者: blueshaw@163.com");
+    fallbackLabel->setText(tr("Author: ") + "blueshaw@163.com");
 
     auto *warningLabel = new QLabel();
     warningLabel->setFont(font);
-    warningLabel->setText(QString::fromLocal8Bit("学习参考，壁纸请勿商用！"));
+    warningLabel->setText(tr("Just for learning, not Commercial！"));
 
     auto *vLayout = new QVBoxLayout();
     vLayout->setContentsMargins(0, 0, 0, 0);
@@ -90,6 +90,7 @@ void AboutDialog::paintEvent(QPaintEvent *event)
     QBitmap bmp(size());
     bmp.fill();
     QPainter p(&bmp);
+    p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
     p.drawRoundedRect(bmp.rect(),8,8);

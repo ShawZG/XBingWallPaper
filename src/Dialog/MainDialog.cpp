@@ -48,9 +48,9 @@ void MainDialog::initUI()
 
 void MainDialog::initTitleWidget()
 {
-    titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), "xBingWallpaper", true, true, true, this);
+    titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), tr("xBingWallpaper"), true, true, true, this);
     auto titleMenu = new QMenu();
-    titleMenu->addAction(QString::fromLocal8Bit("关于"), this, &MainDialog::slotShowAboutDialog);
+    titleMenu->addAction(tr("About"), this, &MainDialog::slotShowAboutDialog);
     titleWidget->setTitleMenu(titleMenu);
 }
 
@@ -79,6 +79,7 @@ void MainDialog::paintEvent(QPaintEvent *event)
     QBitmap bmp(size());
     bmp.fill();
     QPainter p(&bmp);
+    p.setRenderHint(QPainter::Antialiasing);
     p.setPen(Qt::NoPen);
     p.setBrush(Qt::black);
     p.drawRoundedRect(bmp.rect(),8,8);
