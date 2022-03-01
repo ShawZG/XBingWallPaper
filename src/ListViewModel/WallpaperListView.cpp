@@ -77,8 +77,9 @@ void WallpaperListView::initTimer()
 {
     updateTimer = new QTimer();
     updateTimer->setSingleShot(false);
-    updateTimer->setInterval(100);
-    connect(updateTimer, &QTimer::timeout, [this](){this->update();});
+    updateTimer->setInterval(1000);
+    // 图片从网络下载到本地，再加载到Item，View静止条件下不会主动更新画面，设置可视区域为脏区，强制更新画面。
+    connect(updateTimer, &QTimer::timeout, [this](){setDirtyRegion(QRegion(viewport()->rect(),  QRegion::Rectangle));});
     updateTimer->start();
 }
 
