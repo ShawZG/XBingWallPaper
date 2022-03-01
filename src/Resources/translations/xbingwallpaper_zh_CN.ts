@@ -48,17 +48,17 @@
 <context>
     <name>WallpaperListView</name>
     <message>
-        <location filename="../../ListViewModel/WallpaperListView.cpp" line="98"/>
+        <location filename="../../ListViewModel/WallpaperListView.cpp" line="99"/>
         <source>Set wallpaper</source>
         <translation>设置为壁纸</translation>
     </message>
     <message>
-        <location filename="../../ListViewModel/WallpaperListView.cpp" line="101"/>
+        <location filename="../../ListViewModel/WallpaperListView.cpp" line="102"/>
         <source>Save to desktop</source>
         <translation>保存到桌面</translation>
     </message>
     <message>
-        <location filename="../../ListViewModel/WallpaperListView.cpp" line="104"/>
+        <location filename="../../ListViewModel/WallpaperListView.cpp" line="105"/>
         <source>Preview wallpaper</source>
         <translation>预览此壁纸</translation>
     </message>
