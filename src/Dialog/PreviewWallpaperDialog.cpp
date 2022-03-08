@@ -52,9 +52,9 @@ void PreviewWallpaperDialog::initConnect()
     connect(closeButton, &QPushButton::clicked, this, &PreviewWallpaperDialog::close);
 }
 
-void PreviewWallpaperDialog::setWallpaper(const QImage &image)
+void PreviewWallpaperDialog::setWallpaper(const QString &imagePath)
 {
-    wallpaperQLabel->setPixmap(QPixmap::fromImage(image).scaledToWidth(rect().width()));
+    wallpaperQLabel->setPixmap(QPixmap(imagePath).scaledToWidth(rect().width()));
 }
 
 void PreviewWallpaperDialog::keyPressEvent(QKeyEvent *event)

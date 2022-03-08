@@ -13,7 +13,7 @@ class PreviewWallpaperDialog : public QDialog
 public:
     explicit PreviewWallpaperDialog(QWidget *parent = nullptr);
 
-    void setWallpaper(const QImage &image);
+    void setWallpaper(const QString &imagePath);
 
 protected:
     void keyPressEvent(QKeyEvent *event) override;

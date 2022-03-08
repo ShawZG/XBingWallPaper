@@ -1,4 +1,4 @@
-#include <QImage>
+#include <QImageReader>
 #include <QDebug>
 #include "ImageLoaderProxy.h"
 #include "WallpaperItem.h"
@@ -13,5 +13,9 @@ WallpaperItem::WallpaperItem(QDate date, QObject *parent) : QObject(parent)
 
 void WallpaperItem::loadImageFromLocal(const QString &imagePath) {
     imageFilePath = imagePath;
-    loadingImageResult = image.load(imagePath);
+    QImageReader imageReader(imagePath);
+    imageReader.setScaledSize(QSize(480, 270));
+    image = QPixmap::fromImageReader(&imageReader);
+    loadingImageResult = !image.isNull();
 }
+

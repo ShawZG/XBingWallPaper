@@ -135,7 +135,7 @@ void WallpaperListView::slotShowPreview()
         auto *item = currentIndex().data(Qt::DisplayRole).value<WallpaperItem*>();
         if (item->loadingImageResult) {
             PreviewWallpaperDialog dialog;
-            dialog.setWallpaper(item->image);
+            dialog.setWallpaper(item->imageFilePath);
             dialog.exec();
         }
     }

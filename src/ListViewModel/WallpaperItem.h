@@ -3,7 +3,7 @@
 
 #include <QDate>
 #include <QObject>
-#include <QImage>
+#include <QPixmap>
 
 class WallpaperItem : public QObject
 {
@@ -11,7 +11,7 @@ class WallpaperItem : public QObject
 public:
     explicit WallpaperItem(QDate date, QObject *parent = nullptr);
 
-    QImage  image;
+    QPixmap image;
     QString imageFilePath;
     bool    loadingImageResult = false;
 

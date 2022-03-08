@@ -47,7 +47,7 @@ void WallpaperItemDelegate::paintImage(QPainter *painter, const QStyleOptionView
         clipPath.addRoundedRect(adjustRect, 6, 6);
         painter->setPen(Qt::transparent);
         painter->setClipPath(clipPath);
-        painter->drawImage(clipPath.boundingRect().toRect(), item->image);
+        painter->drawPixmap(clipPath.boundingRect().toRect(), item->image);
         painter->drawPath(clipPath);
     }
 #ifdef QT_DEBUG
