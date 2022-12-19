@@ -2,39 +2,42 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="zh_CN" sourcelanguage="en">
 <context>
-    <name>AboutDialog</name>
+    <name>AboutWidget</name>
     <message>
-        <location filename="../../Dialog/AboutDialog.cpp" line="42"/>
-        <source>About</source>
-        <translation>关于</translation>
-    </message>
-    <message>
-        <location filename="../../Dialog/AboutDialog.cpp" line="59"/>
+        <location filename="../../Dialog/AboutWidget.cpp" line="25"/>
         <source>Version: </source>
-        <translation>版本：</translation>
+        <translation>版本： </translation>
     </message>
     <message>
-        <location filename="../../Dialog/AboutDialog.cpp" line="63"/>
+        <location filename="../../Dialog/AboutWidget.cpp" line="29"/>
         <source>Author: </source>
-        <translation>作者：</translation>
+        <translation>作者： </translation>
     </message>
     <message>
-        <location filename="../../Dialog/AboutDialog.cpp" line="67"/>
+        <location filename="../../Dialog/AboutWidget.cpp" line="33"/>
         <source>Just for learning, not Commercial！</source>
         <translation>开源学习，请勿商用！</translation>
     </message>
 </context>
 <context>
+    <name>DonationWidget</name>
+    <message>
+        <location filename="../../Dialog/DonationWidget.cpp" line="28"/>
+        <source>Wei Xin Donation</source>
+        <translation>微信赞赏</translation>
+    </message>
+</context>
+<context>
     <name>MainDialog</name>
     <message>
-        <location filename="../../Dialog/MainDialog.cpp" line="51"/>
+        <location filename="../../Dialog/MainDialog.cpp" line="50"/>
         <source>xBingWallpaper</source>
         <translation>简单壁纸</translation>
     </message>
     <message>
-        <location filename="../../Dialog/MainDialog.cpp" line="53"/>
-        <source>About</source>
-        <translation>关于</translation>
+        <location filename="../../Dialog/MainDialog.cpp" line="52"/>
+        <source>Setting</source>
+        <translation>设置</translation>
     </message>
 </context>
 <context>
@@ -43,6 +46,33 @@
         <location filename="../../main.cpp" line="21"/>
         <source>xBingWallpaper</source>
         <translation>简单壁纸</translation>
+    </message>
+</context>
+<context>
+    <name>SettingDialog</name>
+    <message>
+        <location filename="../../Dialog/SettingDialog.cpp" line="72"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../../Dialog/SettingDialog.cpp" line="53"/>
+        <location filename="../../Dialog/SettingDialog.cpp" line="67"/>
+        <source>Setting</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <location filename="../../Dialog/SettingDialog.cpp" line="77"/>
+        <source>Donation</source>
+        <translation>打赏</translation>
+    </message>
+</context>
+<context>
+    <name>SettingWidget</name>
+    <message>
+        <location filename="../../Dialog/SettingWidget.cpp" line="20"/>
+        <source>Automatically update wallpaper daily</source>
+        <translation>每日自动更新壁纸</translation>
     </message>
 </context>
 <context>

@@ -9,8 +9,7 @@
 #include "AppConfig.h"
 #include "Global.h"
 #include "WallpaperListView.h"
-#include "AboutDialog.h"
-
+#include "SettingDialog.h"
 #include "MainDialog.h"
 
 MainDialog::MainDialog(QWidget *parent)
@@ -50,7 +49,7 @@ void MainDialog::initTitleWidget()
 {
     titleWidget = new TitleWidget(QString(":/app_images/app_images/logo.svg"), tr("xBingWallpaper"), true, true, true, this);
     auto titleMenu = new QMenu();
-    titleMenu->addAction(tr("About"), this, &MainDialog::slotShowAboutDialog);
+    titleMenu->addAction(tr("Setting"), this, &MainDialog::slotShowSettingDialog);
     titleWidget->setTitleMenu(titleMenu);
 }
 
@@ -104,8 +103,8 @@ void MainDialog::restoreAppGeometry()
     }
 }
 
-void MainDialog::slotShowAboutDialog()
+void MainDialog::slotShowSettingDialog()
 {
-    AboutDialog dialog;
+    SettingDialog dialog;
     dialog.exec();
 }

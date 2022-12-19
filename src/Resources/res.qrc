@@ -10,6 +10,7 @@
         <file>app_images/preview_wallpaper.svg</file>
         <file>app_images/set_wallpaper.svg</file>
         <file>app_images/close_preview.svg</file>
+        <file>app_images/wx_donation.jpg</file>
     </qresource>
     <qresource prefix="/dark_style">
         <file>dark_style/darkstyle.qss</file>

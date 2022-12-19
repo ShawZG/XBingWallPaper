@@ -138,3 +138,54 @@ QScrollBar::sub-page:vertical
 {
     background: pattle(base);
 }
+
+SettingDialog QPushButton#settingButton
+{
+    border: none;
+    background-color: rgb(67, 67, 67);
+    border-radius: 6px;
+}
+SettingDialog QPushButton#settingButton:hover
+{
+    background-color:palette(highlight);
+}
+SettingDialog QPushButton#settingButton:checked
+{
+    background-color:palette(highlight);
+}
+
+SettingDialog QPushButton#aboutButton
+{
+    border: none;
+    background-color: rgb(67, 67, 67);
+    border-radius: 6px;
+}
+SettingDialog QPushButton#aboutButton:hover
+{
+    background-color:palette(highlight);
+}
+SettingDialog QPushButton#aboutButton:checked
+{
+    background-color:palette(highlight);
+}
+
+SettingDialog QPushButton#donateButton
+{
+    border: none;
+    background-color: rgb(67, 67, 67);
+    border-radius: 6px;
+}
+SettingDialog QPushButton#donateButton:hover
+{
+    background-color:palette(highlight);
+}
+SettingDialog QPushButton#donateButton:checked
+{
+    background-color:palette(highlight);
+}
+
+QCheckBox::indicator
+{
+    width:  18px;
+    height: 18px;
+}

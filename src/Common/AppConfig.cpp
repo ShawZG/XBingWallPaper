@@ -92,3 +92,13 @@ void AppConfig::setConfig(const QString& key, const QVariant& value)
     AppConfig::setting->setValue(key, value);
     AppConfig::setting->sync();
 }
+
+bool AppConfig::getUpdateWallpaperDaily()
+{
+    return  AppConfig::getConfig("UpdateDaily", false).toBool();
+}
+
+void AppConfig::setUpdateWallpaperDaily(bool daily)
+{
+    AppConfig::setConfig("UpdateDaily", daily);
+}

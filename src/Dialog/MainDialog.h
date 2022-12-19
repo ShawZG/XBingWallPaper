@@ -22,7 +22,7 @@ protected:
     void closeEvent(QCloseEvent *event) override;
 
 private slots:
-    void slotShowAboutDialog();
+    void slotShowSettingDialog();
 
 private:
     void initUI();

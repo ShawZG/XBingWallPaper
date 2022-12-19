@@ -23,6 +23,9 @@ public:
 
     static QString  getImageStorageDir();
 
+    static bool     getUpdateWallpaperDaily();
+    static void     setUpdateWallpaperDaily(bool daily);
+
 private:
     static void        loadConfig();
     static QVariant    getConfig(const QString& key, const QVariant& defaultValue);
