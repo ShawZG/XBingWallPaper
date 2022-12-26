@@ -19,6 +19,7 @@ private slots:
 
 private:
     void initUI();
+
     QCheckBox* autoUpdateCheckBox = nullptr;
 };
 #endif //XBINGWALLPAPER_SETTINGWIDGET_H

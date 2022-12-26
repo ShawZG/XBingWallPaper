@@ -43,7 +43,7 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../../main.cpp" line="21"/>
+        <location filename="../../main.cpp" line="34"/>
         <source>xBingWallpaper</source>
         <translation>简单壁纸</translation>
     </message>
@@ -70,7 +70,7 @@
 <context>
     <name>SettingWidget</name>
     <message>
-        <location filename="../../Dialog/SettingWidget.cpp" line="20"/>
+        <location filename="../../Dialog/SettingWidget.cpp" line="25"/>
         <source>Automatically update wallpaper daily</source>
         <translation>每日自动更新壁纸</translation>
     </message>

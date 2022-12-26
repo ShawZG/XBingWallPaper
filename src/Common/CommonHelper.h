@@ -16,6 +16,7 @@ public:
     static QString  parseUrlImageFormat(const QString& url);
     static bool     copyFileToDir(const QString &filePath, const QString &dirPath);
     static void     setDesktopWallpaper(const QString &wallpaperPath);
+    static QString  localAutoStartLocation();
 };
 
 #endif // COMMONHELPER_H

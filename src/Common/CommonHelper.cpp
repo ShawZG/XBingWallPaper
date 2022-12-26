@@ -9,7 +9,8 @@
 #include <QScreen>
 #include <QDBusInterface>
 #include <QUrl>
-
+#include <QStandardPaths>
+#include <QDebug>
 #include "CommonHelper.h"
 
 CommonHelper::CommonHelper(QObject *parent) : QObject(parent)
@@ -63,16 +64,23 @@ bool CommonHelper::copyFileToDir(const QString &filePath, const QString &dirPath
     return QFile::copy(filePath, dirPath + "/" + fileInfo.fileName());
 }
 
+
 void CommonHelper::setDesktopWallpaper(const QString &wallpaperPath)
 {
-    auto screens = QGuiApplication::screens();
-
     QString service = "com.deepin.daemon.Appearance";
     QString path = "/com/deepin/daemon/Appearance";
     QString interfaceName = "com.deepin.daemon.Appearance";
     QDBusInterface interface(service, path,interfaceName);
+
+    auto screens = QGuiApplication::screens();
     //NOTE 文件的路径格式形如file:///home/user/file.txt，故用QUrl转换
     for (const auto screen : screens) {
+        qInfo() << "screen name:" << screen->name();
         interface.call("SetMonitorBackground",screen->name(),QUrl::fromLocalFile(wallpaperPath).toLocalFile());
     }
+}
+
+QString CommonHelper::localAutoStartLocation()
+{
+    return QStandardPaths::writableLocation(QStandardPaths::ConfigLocation) + QDir::separator() + "autostart";
 }
